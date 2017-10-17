@@ -126,6 +126,24 @@
 
   <title>Fifi Zhuang的博客</title>
   
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 
 
 
@@ -293,8 +311,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2017/10/12/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/12/hello-world/" itemprop="commentCount"></span>
+                  <span class="post-comments-count fb-comments-count" data-href="https://fifi1996.github.io/site/2017/10/12/hello-world/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
