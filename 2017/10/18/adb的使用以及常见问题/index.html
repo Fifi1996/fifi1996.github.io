@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包">
+<meta name="description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="adb的使用以及常见问题">
 <meta property="og:url" content="https://fifi1996.github.io/site/2017/10/18/adb的使用以及常见问题/index.html">
 <meta property="og:site_name" content="Fifi Zhuang的博客">
-<meta property="og:description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包">
+<meta property="og:description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-7b1040bb0645db9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-a397400f22253084.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-10-18T07:42:05.234Z">
+<meta property="og:updated_time" content="2017-10-18T07:44:57.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="adb的使用以及常见问题">
-<meta name="twitter:description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包">
+<meta name="twitter:description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4975863-7b1040bb0645db9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -377,7 +377,8 @@
       
 
       
-        <h2 id="ADB介绍"><a href="#ADB介绍" class="headerlink" title="ADB介绍"></a>ADB介绍</h2><p>ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包括三个组件：</p>
+        <hr>
+<h2 id="ADB介绍"><a href="#ADB介绍" class="headerlink" title="ADB介绍"></a>ADB介绍</h2><p>ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包括三个组件：</p>
 <ul>
 <li>客户端，该组件发送命令。客户端在开发计算机上运行。您可以通过发出 adb 命令从命令行终端调用客户端。</li>
 <li>后台程序，该组件在设备上运行命令。后台程序在每个模拟器或设备实例上作为后台进程运行。</li>
