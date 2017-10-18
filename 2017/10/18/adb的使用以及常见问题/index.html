@@ -79,16 +79,20 @@
 
 
 
-<meta name="description" content="爱学习爱生活的tester">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Fifi Zhuang的博客">
-<meta property="og:url" content="https://fifi1996.github.io/site/index.html">
+<meta name="description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="adb的使用以及常见问题">
+<meta property="og:url" content="https://fifi1996.github.io/site/2017/10/18/adb的使用以及常见问题/index.html">
 <meta property="og:site_name" content="Fifi Zhuang的博客">
-<meta property="og:description" content="爱学习爱生活的tester">
+<meta property="og:description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-7b1040bb0645db9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-a397400f22253084.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-18T07:37:56.162Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fifi Zhuang的博客">
-<meta name="twitter:description" content="爱学习爱生活的tester">
+<meta name="twitter:title" content="adb的使用以及常见问题">
+<meta name="twitter:description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4975863-7b1040bb0645db9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://fifi1996.github.io/site/"/>
+  <link rel="canonical" href="https://fifi1996.github.io/site/2017/10/18/adb的使用以及常见问题/"/>
 
 
 
 
 
-  <title>Fifi Zhuang的博客</title>
+  <title>adb的使用以及常见问题 | Fifi Zhuang的博客</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -161,8 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,9 +258,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -287,9 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/18/adb的使用以及常见问题/" itemprop="url">adb的使用以及常见问题</a></h1>
+          <h1 class="post-title" itemprop="name headline">adb的使用以及常见问题</h1>
         
 
         <div class="post-meta">
@@ -353,6 +354,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
           
 
@@ -371,9 +377,7 @@
       
 
       
-        
-          
-            <h2 id="ADB介绍"><a href="#ADB介绍" class="headerlink" title="ADB介绍"></a>ADB介绍</h2><p>ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包括三个组件：</p>
+        <h2 id="ADB介绍"><a href="#ADB介绍" class="headerlink" title="ADB介绍"></a>ADB介绍</h2><p>ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包括三个组件：</p>
 <ul>
 <li>客户端，该组件发送命令。客户端在开发计算机上运行。您可以通过发出 adb 命令从命令行终端调用客户端。</li>
 <li>后台程序，该组件在设备上运行命令。后台程序在每个模拟器或设备实例上作为后台进程运行。</li>
@@ -413,8 +417,6 @@
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1 、5037端口被占用<br> <em>daemon not running. starting it now on port 5037 </em> error: could not install<em><br>方法：</em>netstat -ano | findstr “5037”<em><br>找到5037被什么进程占用了，然后杀掉进程</em>taskkill /f /pid 进程号*<br>2 、设备显示offline<br>方法：先检查手机是否开启了debug调试选项，看一下是不是接触不良，或者换一根数据线，检查电脑是否安装了手机的驱动。如果都不行的话更新一下adb工具版本。笔者就是这个问题困扰了一天，红米2调试机上无论什么方法都处于offline状态，其他调试机都没问题。查看了adb版本发现是Android Debug Bridge version 1.0.26，所以换了一个新的版本 1.0.32就好了，目前还没找到原因。<br>附上链接: <a href="https://pan.baidu.com/s/1pKNIaef" target="_blank" rel="external">https://pan.baidu.com/s/1pKNIaef</a> 密码: d94t</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>android studio官网介绍<br><a href="https://developer.android.com/studio/command-line/adb.html" target="_blank" rel="external">https://developer.android.com/studio/command-line/adb.html</a><br>目前使用adb就遇到这些问题和用法，未完待续。。。<br>如有错误欢迎指正</p>
 
-          
-        
       
     </div>
     
@@ -431,12 +433,27 @@
       
 
       
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -446,10 +463,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -457,6 +475,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2017/10/18/adb的使用以及常见问题/"
+           data-title="adb的使用以及常见问题" data-url="https://fifi1996.github.io/site/2017/10/18/adb的使用以及常见问题/">
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -477,8 +506,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -543,6 +581,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ADB介绍"><span class="nav-number">1.</span> <span class="nav-text">ADB介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见命令"><span class="nav-number">3.</span> <span class="nav-text">常见命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -697,6 +751,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
