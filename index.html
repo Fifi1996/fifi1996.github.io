@@ -270,6 +270,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/site/2017/10/18/字符串/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fifi Zhuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fifi Zhuang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/18/字符串/" itemprop="url">字符串</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-18T16:03:52+08:00">
+                2017-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/18/字符串/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/18/字符串/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>##字符串循环左移问题</p>
+<ul>
+<li>1 问题描述：给定一个字符串S[0…N-1],要求把S的前k个字符移到S的尾部，如把S的字符串“abcded”前面的前两个字符“a”,“b”移到字符串的尾部，得到新字符串“cdefab”，即字符串循环左移2位。</li>
+<li>2 算法要求：时间复杂度为O（n）,空间复杂度为O(1)。</li>
+<li>3 解题思路：三次翻转字符串解法比暴力求解复杂度小，<br>假设<blockquote>
+<p>X=’ab’<br>Y=’cdef ‘<br>X ‘ = ‘ba’<br>Y ‘ = ‘ fedc ‘<br>( X ‘ Y ‘ ) ‘ = ‘ cdefab </p>
+</blockquote>
+</li>
+<li>4 代码<pre><code>#include&lt;stdio.h&gt;
+ void reverseString(char *s, int from , int to)  
+{  
+  while(from&lt;to)  
+  {  
+  char t = s[from];  
+  s[from++] = s[to];  
+  s[to--] = t;  
+  }  
+}  
+void leftRotateString(char*s, int n, int m)  
+{  
+  m %= n;  
+reverseString(s,0,m-1);  
+reverseString(s,m,n-1);  
+reverseString(s,0,n-1);  
+}  
+int main()
+{
+char str[] = &quot;abcdef&quot;;
+printf(&quot;The string:%s\n&quot;, str);
+leftRotateString(str, 6, 2);
+printf(&quot;After left shift:%s\n&quot;, str);
+return 0;
+}  
+</code></pre></li>
+<li>5 该问题可作为完美洗牌算法的子算法，未完待续……</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/site/2017/10/18/理解TCP-IP协议三次握手四次挥手/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1796,7 +1984,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1807,7 +1995,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
