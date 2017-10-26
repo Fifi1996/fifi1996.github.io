@@ -79,16 +79,24 @@
 
 
 
-<meta name="description" content="爱学习爱生活的tester">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Fifi Zhuang的博客">
-<meta property="og:url" content="https://fifi1996.github.io/archives/2017/10/index.html">
+<meta name="description" content="周知计算机相关的多少需要掌握一些linux知识，笔记本上是win10+centos（虚拟机）的系统，奈何每天背电脑太重。故计划在我司台式上新装一个虚拟机。台式是win7的，虚拟机选择了常用的VMware，linux有许多版本，eg：centos,unbuntu。。读者可以根据需求自行选择安装，网盘里有centos6.5的iso就直接下载，扔个链接：http://pan.baidu.com/s/1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VM虚拟机安装centos">
+<meta property="og:url" content="https://fifi1996.github.io/2017/10/23/VM虚拟机安装centos/index.html">
 <meta property="og:site_name" content="Fifi Zhuang的博客">
-<meta property="og:description" content="爱学习爱生活的tester">
+<meta property="og:description" content="周知计算机相关的多少需要掌握一些linux知识，笔记本上是win10+centos（虚拟机）的系统，奈何每天背电脑太重。故计划在我司台式上新装一个虚拟机。台式是win7的，虚拟机选择了常用的VMware，linux有许多版本，eg：centos,unbuntu。。读者可以根据需求自行选择安装，网盘里有centos6.5的iso就直接下载，扔个链接：http://pan.baidu.com/s/1">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-ad1132f8fffe0d9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-c365eac0626bb425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-5f63adcbfd73a060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-9b4cb31b1975f093.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-809f829bba989754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-6e9ef65c81cb015f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-26T11:59:56.019Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fifi Zhuang的博客">
-<meta name="twitter:description" content="爱学习爱生活的tester">
+<meta name="twitter:title" content="VM虚拟机安装centos">
+<meta name="twitter:description" content="周知计算机相关的多少需要掌握一些linux知识，笔记本上是win10+centos（虚拟机）的系统，奈何每天背电脑太重。故计划在我司台式上新装一个虚拟机。台式是win7的，虚拟机选择了常用的VMware，linux有许多版本，eg：centos,unbuntu。。读者可以根据需求自行选择安装，网盘里有centos6.5的iso就直接下载，扔个链接：http://pan.baidu.com/s/1">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4975863-ad1132f8fffe0d9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -118,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://fifi1996.github.io/archives/2017/10/"/>
+  <link rel="canonical" href="https://fifi1996.github.io/2017/10/23/VM虚拟机安装centos/"/>
 
 
 
 
 
-  <title>归档 | Fifi Zhuang的博客</title>
+  <title>VM虚拟机安装centos | Fifi Zhuang的博客</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -161,7 +169,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,148 +263,212 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/2017/10/23/VM虚拟机安装centos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fifi Zhuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fifi Zhuang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">VM虚拟机安装centos</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-23T14:35:49+08:00">
+                2017-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 9 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/23/VM虚拟机安装centos/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://fifi1996.github.io/2017/10/23/VM虚拟机安装centos/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <hr>
+<p>周知计算机相关的多少需要掌握一些linux知识，笔记本上是win10+centos（虚拟机）的系统，奈何每天背电脑太重。故计划在我司台式上新装一个虚拟机。台式是win7的，虚拟机选择了常用的VMware，linux有许多版本，eg：centos,unbuntu。。读者可以根据需求自行选择安装，网盘里有centos6.5的iso就直接下载，扔个链接：<a href="http://pan.baidu.com/s/1gfgX7Ej" target="_blank" rel="external">http://pan.baidu.com/s/1gfgX7Ej</a> 密码：r8ct</p>
+<h1 id="1-、-安装VM"><a href="#1-、-安装VM" class="headerlink" title="1 、 安装VM"></a>1 、 安装VM</h1><p> VM的安装就省略不讲现在已经更新到12，同其他软件类似一路next后选择路径就好</p>
+<h1 id="２、下载linux镜像"><a href="#２、下载linux镜像" class="headerlink" title="２、下载linux镜像"></a>２、下载linux镜像</h1><h1 id="３、-创建新虚拟机，选择下载的镜像添加"><a href="#３、-创建新虚拟机，选择下载的镜像添加" class="headerlink" title="３、 创建新虚拟机，选择下载的镜像添加"></a>３、 创建新虚拟机，选择下载的镜像添加</h1><p><img src="http://upload-images.jianshu.io/upload_images/4975863-ad1132f8fffe0d9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>以上步骤都比较简单，但是在台式机上遇到CPU不支持虚拟化问题</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-c365eac0626bb425.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>搜索后发现此主机支持 Intel VT-x，但 Intel VT-x 处于禁用状态，可通过CPU检测工具查看（LeoMoon CPU-V）链接：<a href="http://pan.baidu.com/s/1i4K8PKh" target="_blank" rel="external">http://pan.baidu.com/s/1i4K8PKh</a> 密码：7m4n</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-5f63adcbfd73a060.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h1 id="4-、Intel-VT-x-处于禁用状态解除方式"><a href="#4-、Intel-VT-x-处于禁用状态解除方式" class="headerlink" title="4 、Intel VT-x 处于禁用状态解除方式"></a>4 、Intel VT-x 处于禁用状态解除方式</h1><ul>
+<li>关机等待品牌logo出现后进入bios模式，一般是F2</li>
+<li>选择 configuration -&gt;intel virtual technology ，此时该选项应该是disabled（关闭）的；将disabled（关闭）改为 enabled（开启）。</li>
+<li>此时检查工具若还是报错，也许是360核晶防护有关，关闭后便正常。<br>重新检测如下<br><img src="http://upload-images.jianshu.io/upload_images/4975863-9b4cb31b1975f093.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><h1 id="5、开启centos，播放虚拟机"><a href="#5、开启centos，播放虚拟机" class="headerlink" title="5、开启centos，播放虚拟机"></a>5、开启centos，播放虚拟机</h1></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-809f829bba989754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-6e9ef65c81cb015f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>通过以上步骤就能开启linux学习之路啦~<br>步骤和解决方式本人亲测有效，欢迎交流</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
         
-        
+
         
 
         
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
           </div>
         
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/23/VM虚拟机安装centos/" itemprop="url">
-              
-                <span itemprop="name">VM虚拟机安装centos</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-23T14:35:49+08:00"
-              content="2017-10-23" >
-          10-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
+      
       
 
-        
-        
-        
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/19/覆盖安装测试关注点/" rel="next" title="覆盖安装测试关注点">
+                <i class="fa fa-chevron-left"></i> 覆盖安装测试关注点
+              </a>
+            
+          </div>
 
-        
-        
+          <span class="post-nav-divider"></span>
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/19/覆盖安装测试关注点/" itemprop="url">
-              
-                <span itemprop="name">覆盖安装测试关注点</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-19T20:10:54+08:00"
-              content="2017-10-19" >
-          10-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/02/大学回顾与实习首月总结/" itemprop="url">
-              
-                <span itemprop="name">大学回顾与实习首月总结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-02T02:52:57+08:00"
-              content="2017-10-02" >
-          10-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-    </div>
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -404,6 +476,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments"
+           data-href="https://fifi1996.github.io/2017/10/23/VM虚拟机安装centos/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -424,8 +510,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -490,6 +585,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-、-安装VM"><span class="nav-number">1.</span> <span class="nav-text">1 、 安装VM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#２、下载linux镜像"><span class="nav-number">2.</span> <span class="nav-text">２、下载linux镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#３、-创建新虚拟机，选择下载的镜像添加"><span class="nav-number">3.</span> <span class="nav-text">３、 创建新虚拟机，选择下载的镜像添加</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-、Intel-VT-x-处于禁用状态解除方式"><span class="nav-number">4.</span> <span class="nav-text">4 、Intel VT-x 处于禁用状态解除方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、开启centos，播放虚拟机"><span class="nav-number">5.</span> <span class="nav-text">5、开启centos，播放虚拟机</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -661,6 +772,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -678,6 +793,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://fifi1996.github.io/2017/10/23/VM虚拟机安装centos/';
+          this.page.identifier = '2017/10/23/VM虚拟机安装centos/';
+          this.page.title = 'VM虚拟机安装centos';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
