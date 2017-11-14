@@ -80,9 +80,9 @@
 
 
 <meta name="description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="adb的使用以及常见问题">
-<meta property="og:url" content="https://fifi1996.github.io/2017/09/15/adb的使用以及常见问题/index.html">
+<meta property="og:url" content="https://fifi1996.github.io/categories/adb的使用以及常见问题.html">
 <meta property="og:site_name" content="Fifi Zhuang的博客">
 <meta property="og:description" content="ADB介绍ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，">
 <meta property="og:locale" content="zh-Hans">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://fifi1996.github.io/2017/09/15/adb的使用以及常见问题/"/>
+  <link rel="canonical" href="https://fifi1996.github.io/categories/adb的使用以及常见问题.html"/>
 
 
 
@@ -299,234 +299,40 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-categories" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/2017/09/15/adb的使用以及常见问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fifi Zhuang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fifi Zhuang的博客">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">adb的使用以及常见问题</h1>
-        
+	<h1 class="post-title" itemprop="name headline">adb的使用以及常见问题</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T19:15:35+08:00">
-                2017-09-15
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android工具/" itemprop="url" rel="index">
-                    <span itemprop="name">android工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/15/adb的使用以及常见问题/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://fifi1996.github.io/2017/09/15/adb的使用以及常见问题/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <hr>
-<h2 id="ADB介绍"><a href="#ADB介绍" class="headerlink" title="ADB介绍"></a>ADB介绍</h2><p>ADB（Android Debug Bridge）是Android SDK中的一个工具, 使用ADB可以直接操作管理Android模拟器或者真实的Andriod设备。其允许您与模拟器实例或连接的 Android 设备进行通信。它可为各种设备操作提供便利，如安装和调试应用，并提供对 Unix shell（可用来在模拟器或连接的设备上运行各种命令）的访问。该工具作为一个客户端-服务器程序，包括三个组件：</p>
-<ul>
-<li>客户端，该组件发送命令。客户端在开发计算机上运行。您可以通过发出 adb 命令从命令行终端调用客户端。</li>
-<li>后台程序，该组件在设备上运行命令。后台程序在每个模拟器或设备实例上作为后台进程运行。</li>
-<li><p>服务器，该组件管理客户端和后台程序之间的通信。服务器在开发计算机上作为后台进程运行。<br>ADB主要功能有:</p>
-<p>  1、在Android设备上运行Shell(命令行)<br>  2、管理模拟器或设备的端口映射<br>  3、在计算机和设备之间上传/下载文件<br>  4、将电脑上的本地APK软件安装至Android模拟器或设备上</p>
-</li>
-</ul>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ul>
-<li>要在通过 USB 连接的设备上使用 adb，您必须在设备系统设置中启用 USB debugging（位于 Developer options 下）<br>在运行 Android 4.2 及更高版本的设备上，Developer options 屏幕默认情况下处于隐藏状态。如需将其显示出来，请转到 Settings &gt; About phone 并点按 Build number 七次。返回上一屏幕，在底部可以找到 Developer options。<br>在某些设备上，Developer options 屏幕所在的位置或命名方式可能有所不同。</li>
-<li>启动命令行输入   <em>adb devices</em> 可以查看到当前设备已经连上了。<br><img src="http://upload-images.jianshu.io/upload_images/4975863-7b1040bb0645db9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
-</ul>
-<h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><blockquote>
-<p> adb install <apk文件路径></apk文件路径></p>
-</blockquote>
-<p> 这个命令将指定的apk文件安装到设备上，如果加-r是覆盖安装</p>
-<blockquote>
-<p> adb shell pm list packages<br><img src="http://upload-images.jianshu.io/upload_images/4975863-a397400f22253084.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>列出已安装的包名</p>
-<p>adb uninstall &lt;软件名&gt;<br>adb uninstall -k &lt;软件名&gt;</p>
-</blockquote>
-<p>如果加 -k 参数,为卸载软件但是保留配置和缓存文件.</p>
-<blockquote>
-<p>adb shell </p>
-</blockquote>
-<p> 这个命令将登录设备的shell</p>
-<blockquote>
-<p>adb shell <command命令></command命令></p>
-</blockquote>
-<p>后面加<command命令>将是直接运行设备命令, 相当于执行远程命令</command命令></p>
-<blockquote>
-<p> adb help</p>
-</blockquote>
-<p> 这个命令将显示帮助信息</p>
-<blockquote>
-<p> adb push &lt;本地路径&gt; &lt;远程路径&gt;</p>
-</blockquote>
-<p>从电脑上发送文件到设备</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1 、5037端口被占用<br> <em>daemon not running. starting it now on port 5037 </em> error: could not install<em><br>方法：</em>netstat -ano | findstr “5037”<em><br>找到5037被什么进程占用了，然后杀掉进程</em>taskkill /f /pid 进程号*<br>2 、设备显示offline<br>方法：先检查手机是否开启了debug调试选项，看一下是不是接触不良，或者换一根数据线，检查电脑是否安装了手机的驱动。如果都不行的话更新一下adb工具版本。笔者就是这个问题困扰了一天，红米2调试机上无论什么方法都处于offline状态，其他调试机都没问题。查看了adb版本发现是Android Debug Bridge version 1.0.26，所以换了一个新的版本 1.0.32就好了，目前还没找到原因。<br>附上链接: <a href="https://pan.baidu.com/s/1pKNIaef" target="_blank" rel="external">https://pan.baidu.com/s/1pKNIaef</a> 密码: d94t</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>android studio官网介绍<br><a href="https://developer.android.com/studio/command-line/adb.html" target="_blank" rel="external">https://developer.android.com/studio/command-line/adb.html</a><br>目前使用adb就遇到这些问题和用法，未完待续。。。<br>如有错误欢迎指正</p>
-
+      <div class="post-body">
+        
+        
+          <div class="category-all-page">
+            <div class="category-all-title">
+                目前共计 6 个分类
+            </div>
+            <div class="category-all">
+              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android工具/">android工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法与数据结构/">算法与数据结构</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件测试/">软件测试</a><span class="category-list-count">2</span></li></ul>
+            </div>
+          </div>
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-        <div class="post-widgets">
-        
-
-        
-
-        
-          
-          <div id="needsharebutton-postbottom">
-            <span class="btn">
-              <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </span>
-          </div>
-        
-        </div>
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/09/10/共享单车测试用例/" rel="next" title="共享单车测试用例">
-                <i class="fa fa-chevron-left"></i> 共享单车测试用例
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/02/大学回顾与实习首月总结/" rel="prev" title="大学回顾与实习首月总结">
-                大学回顾与实习首月总结 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -539,7 +345,7 @@
   
     <div class="comments" id="comments">
       <div class="fb-comments"
-           data-href="https://fifi1996.github.io/2017/09/15/adb的使用以及常见问题/"
+           data-href="https://fifi1996.github.io/categories/adb的使用以及常见问题.html"
            data-numposts="10"
            data-width="100%"
            data-colorscheme="light">
