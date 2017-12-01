@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前学了计算机网络，但半年后就忘的差不多了，感觉TCP/IP协议的这个知识点很重要，整理一篇文章来巩固一下。文章分为TCP的概念，TCP/UDP区别总结，三次握手四次挥手的过程，为什么要这么做的原因等四大部分来讲解。 一 、 TCP协议的概念TCP（transmission control protocal,传输控制协议）,是面向连接的并具备顺序控制、重发控制等机制的。所以它可以为应用提供可靠传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解TCP&#x2F;IP协议三次握手四次挥手">
+<meta property="og:url" content="https://fifi1996.github.io/2017/06/25/理解TCP-IP协议三次握手四次挥手/index.html">
+<meta property="og:site_name" content="Fifi Zhuang的博客">
+<meta property="og:description" content="之前学了计算机网络，但半年后就忘的差不多了，感觉TCP/IP协议的这个知识点很重要，整理一篇文章来巩固一下。文章分为TCP的概念，TCP/UDP区别总结，三次握手四次挥手的过程，为什么要这么做的原因等四大部分来讲解。 一 、 TCP协议的概念TCP（transmission control protocal,传输控制协议）,是面向连接的并具备顺序控制、重发控制等机制的。所以它可以为应用提供可靠传">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-4c845a1d5dde27b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-5e3c927649d3560b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-20268f12043b2024.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-ad39340c34e20930.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-18T08:13:02.491Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解TCP&#x2F;IP协议三次握手四次挥手">
+<meta name="twitter:description" content="之前学了计算机网络，但半年后就忘的差不多了，感觉TCP/IP协议的这个知识点很重要，整理一篇文章来巩固一下。文章分为TCP的概念，TCP/UDP区别总结，三次握手四次挥手的过程，为什么要这么做的原因等四大部分来讲解。 一 、 TCP协议的概念TCP（transmission control protocal,传输控制协议）,是面向连接的并具备顺序控制、重发控制等机制的。所以它可以为应用提供可靠传">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4975863-4c845a1d5dde27b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fifi1996.github.io/2017/06/25/理解TCP-IP协议三次握手四次挥手/"/>
+
+
+
+
+
+  <title>理解TCP/IP协议三次握手四次挥手 | Fifi Zhuang的博客</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<!-- 
+  <div id="hexo-helper-live2d">
+      <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+  </div>
+    <style>
+      #live2dcanvas{
+      	-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+        position: fixed;
+        width: 150px;
+        height: 300px;
+        opacity:1;
+        
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -20px;
+      }
+	  
+    </style>
+    <script src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+    if(device.mobile()){
+      document.getElementById("live2dcanvas").style.width = '75px';
+      document.getElementById("live2dcanvas").style.height = '150px';
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }else{
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }
+    })();
+    </script>
+ -->
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fifi Zhuang的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-album">
+          <a href="/album" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-board">
+          <a href="/board" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/2017/06/25/理解TCP-IP协议三次握手四次挥手/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fifi Zhuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fifi Zhuang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">理解TCP/IP协议三次握手四次挥手</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-25T15:56:22+08:00">
+                2017-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/25/理解TCP-IP协议三次握手四次挥手/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://fifi1996.github.io/2017/06/25/理解TCP-IP协议三次握手四次挥手/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>之前学了计算机网络，但半年后就忘的差不多了，感觉TCP/IP协议的这个知识点很重要，整理一篇文章来巩固一下。文章分为TCP的概念，TCP/UDP区别总结，三次握手四次挥手的过程，为什么要这么做的原因等四大部分来讲解。</p>
+<h1 id="一-、-TCP协议的概念"><a href="#一-、-TCP协议的概念" class="headerlink" title="一 、 TCP协议的概念"></a>一 、 TCP协议的概念</h1><p>TCP（transmission control protocal,传输控制协议）,是面向连接的并具备顺序控制、重发控制等机制的。所以它可以为应用提供可靠传输。工作在网络OSI的七层模型的第四层——传输层。ip在第三层——网络层。我们要知道数据从应用层发下来，会在每一层加上响应的头部信息，进行封装然后再发送到数据的接收端。每一层的作用和对应的协议如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-4c845a1d5dde27b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>接下来介绍TCP协议的数据格式和头部格式每个字段的含义：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-5e3c927649d3560b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>Source Port和Destination Port:分别占用16位，表示源端口号和目的端口号；用于区别主机中的不同进程，而IP地址是用来区分不同的主机的，源端口号和目的端口号配合上IP首部中的源IP地址和目的IP地址就能唯一的确定一个TCP连接。</li>
+<li>Sequence Number:用来标识从TCP发端向TCP收端发送的数据字节流，它表示在这个报文段中的的第一个数据字节在数据流中的序号；主要用来解决网络报乱序的问题。</li>
+<li>Acknowledgment Number:32位确认序列号包含发送确认的一端所期望收到的下一个序号，因此，确认序号应当是上次已成功收到数据字节序号加1。不过，只有当标志位中的<code>ACK</code>标志（下面介绍）为1时该确认序列号的字段才有效。主要用来解决不丢包的问题。</li>
+<li>Offset:给出首部中32 bit字的数目，需要这个值是因为任选字段的长度是可变的。这个字段占4bit（最多能表示15个32bit的的字，即4*15=60个字节的首部长度），因此TCP最多有60字节的首部。然而，没有任选字段，正常的长度是20字节。</li>
+<li>TCP Flags:TCP首部中有6个标志比特，它们中的多个可同时被设置为1，主要是用于操控TCP的状态机的，依次为<code>URG</code>，<code>ACK</code>，<code>PSH</code>，<code>RST</code>，<code>SYN</code>，<code>FIN</code>。每个标志位的意思如下：<pre><code>* URG：此标志表示TCP包的紧急指针域（后面马上就要说到）有效，用来保证TCP连接不被中断，并且督促中间层设备要尽快处理这些数据
+* ACK：此标志表示应答域有效，就是说前面所说的TCP应答号将会包含在TCP数据包中；有两个取值：0和1，为1的时候表示应答域有效，反之为0
+* PSH：这个标志位表示Push操作。所谓Push操作就是指在数据包到达接收端以后，立即传送给应用程序，而不是在缓冲区中排队
+* RST：这个标志表示连接复位请求。用来复位那些产生错误的连接，也被用来拒绝错误和非法的数据包
+* SYN：表示同步序号，用来建立连接。SYN标志位和ACK标志位搭配使用，当连接请求的时候，SYN=1，ACK=0；连接被响应的时候，SYN=1，ACK=1；这个标志的数据包经常被用来进行端口扫描。扫描者发送一个只有SYN的数据包，如果对方主机响应了一个数据包回来 ，就表明这台主机存在这个端口；但是由于这种扫描方式只是进行TCP三次握手的第一次握手，因此这种扫描的成功表示被扫描的机器不很安全，一台安全的主机将会强制要求一个连接严格的进行TCP的三次握手
+* FIN： 表示发送端已经达到数据末尾，也就是说双方的数据传送完成，没有数据可以传送了，发送FIN标志位的TCP数据包后，连接将被断开。这个标志的数据包也经常被用于进行端口扫描
+</code></pre></li>
+<li>Window:窗口大小，也就是有名的滑动窗口，用来进行流量控制。</li>
+</ul>
+<hr>
+<h1 id="二、-TCP-UDP区别总结"><a href="#二、-TCP-UDP区别总结" class="headerlink" title="二、 TCP/UDP区别总结"></a>二、 TCP/UDP区别总结</h1><p>TCP(Transmission Control Protocol)<br>UDP(User Datagram Protocol)</p>
+<ul>
+<li>TCP面向连接（如打电话要先拨号建立连接)，UDP是无连接的，即发送数据之前不需要建立连接。</li>
+<li>TCP提供可靠的服务,逻辑通信信道是全双工的可靠信道，也就是说通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达。UDP是不可靠信道尽最大努力交付，即不保证可靠交付。</li>
+<li>TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流。UDP是面向报文的UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）。</li>
+<li>每一条TCP连接只能是点到点的,UDP支持一对一，一对多，多对一和多对多的交互通信。</li>
+<li>TCP首部开销20字节，UDP的首部开销小，只有8个字节。</li>
+</ul>
+<hr>
+<h1 id="三-、-三次握手四次挥手的过程"><a href="#三-、-三次握手四次挥手的过程" class="headerlink" title="三 、 三次握手四次挥手的过程"></a>三 、 三次握手四次挥手的过程</h1><p>TCP是面向连接的，无论哪一方向另一方发送数据之前，都必须先在双方之间建立一条连接。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-20268f12043b2024.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>第一次握手：建立连接。客户端发送连接请求报文段，将<code>SYN</code>位置为1，<code>Sequence Number</code>为x；然后，客户端进入<code>SYN_SEND</code>状态，等待服务器的确认。</li>
+<li>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置<code>Acknowledgment Number</code>为x+1(Sequence Number+1)；同时，自己自己还要发送SYN请求信息，将SYN位置为1，<code>Sequence Number</code>为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入<code>SYN_RECV</code>状态</li>
+<li>第三次握手：客户端收到服务器的SYN+ACK报文段。然后将<code>Acknowledgment Number</code>设置为y+1，向服务器发送<code>ACK</code>报文段，这个报文段发送完毕以后，客户端和服务器端都进入<code>ESTABLISHED</code>状态，完成TCP三次握手。</li>
+</ul>
+<p>完成了三次握手，客户端和服务器端就可以开始传送数据。</p>
+<hr>
+<p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，要断开TCP连接.对于TCP的断开连接，这里就有了神秘的“四次分手”。</p>
+<ul>
+<li>第一次分手：主机1（可以使客户端，也可以是服务器端），设置<code>Sequence Number</code>和<code>Acknowledgment Number</code>，向主机2发送一个FIN报文段；此时，主机1进入<code>FIN_WAIT_1</code>状态；这表示主机1没有数据要发送给主机2了。</li>
+<li>第二次分手：主机2收到了主机1发送的FIN报文段，向主机1回一个<code>ACK</code>报文段，<code>Acknowledgment Number</code>为<code>Sequence Number</code>加1；主机1进入<code>FIN_WAIT_2</code>状态；主机2告诉主机1，我“同意”你的关闭请求。</li>
+<li>第三次分手：主机2向主机1发送<code>FIN</code>报文段，请求关闭连接，同时主机2进入<code>LAST_ACK</code>状态。</li>
+<li>第四次分手：主机1收到主机2发送的<code>FIN</code>报文段，向主机2发送<code>ACK</code>报文段，然后主机1进入<code>TIME_WAIT</code>状态；主机2收到主机1的<code>ACK</code>报文段以后，就关闭连接；此时，主机1等待<code>2MSL</code>后依然没有收到回复，则证明Server端已正常关闭，主机1也可以关闭连接了。</li>
+</ul>
+<hr>
+<h1 id="四、-相关问题"><a href="#四、-相关问题" class="headerlink" title="四、 相关问题"></a>四、 相关问题</h1><ul>
+<li><p>1 为什么要三次握手？<br>感觉两次就能完成连接，为什么非要三次呢？引用谢希仁的《计算机网络》中的解释</p>
+<blockquote>
+<p> 为了防止已失效的连接请求报文段突然又传送到了服务器端，因而产生错误。</p>
+</blockquote>
+<p> 就是防止服务器端的一直等待而浪费了资源。</p>
+</li>
+<li>2 为什么要四次分手？<br>TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回<code>ACK</code>报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</li>
+<li><p>3 为什么<code>TIME_WAIT</code>状态还需要等<code>2MSL</code>后才能返回到<code>CLOSED</code>状态？</p>
+<ul>
+<li>什么是<code>2MSL</code>？MSL即Maximum Segment Lifetime，也就是报文最大生存时间，引用《TCP/IP详解》中的话：“它(MSL)是任何报文段被丢弃前在网络内的最长时间。”那么，2MSL也就是这个时间的2倍。其实我觉得没必要把这个MSL的确切含义搞明白，你所需要明白的是，当TCP连接完成四个报文段的交换时，主动关闭的一方将继续等待一定时间(2-4分钟)，即使两端的应用程序结束。</li>
+<li>从以上TCP连接关闭的状态转换图可以看出，主动关闭的一方在发送完对对方FIN报文的确认(ACK)报文后，会进入<code>TIME_WAIT</code>状态。<code>TIME_WAIT</code>状态也称为2MSL状态。</li>
+<li>为什么需要2MSL？根据《TCP/IP详解》和《The TCP/IP Guide》中的说法，有两个原因：<blockquote>
+<p>其一，保证发送的ACK会成功发送到对方，如何保证？我觉得可能是通过超时计时器发送。这个就很难用代码演示了。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>  其二，报文可能会被混淆，意思是说，其他时候的连接可能会被当作本次的连接。直接引用《The TCP/IP Guide》的说法：The second is to provide a “buffering period” between the end of this connection and any subsequent ones. If not for this period, it is possible that packets from different connections could be mixed, creating confusion.</p>
+</blockquote>
+</li>
+<li>4 常见的应用中有哪些是应用TCP协议的，哪些又是应用UDP协议的，为什么它们被如此设计？<ul>
+<li>多播的信息一定要用UDP实现，因为TCP只支持一对一通信。</li>
+<li>如果一个应用场景重性能甚于重完整性和安全性，那么适合于UDP，比如多媒体应用，缺一两帧不影响用户体验，但是需要流媒体到达的速度快，因此比较适合用UDP。</li>
+</ul>
+</li>
+<li>以qq为例的一个说明<ul>
+<li>登陆采用TCP协议和HTTP协议，你和好友之间发送消息，主要采用UDP协议，内网传文件采用了P2P技术。</li>
+<li>和好友发消息，客户端client采用UDP协议，但是需要通过服务器转发。腾讯为了确保传输消息的可靠，采用上层协议来保证可靠传输。如果消息发送失败，客户端会提示消息发送失败，并可重新发送。 </li>
+<li>如果是在内网里面的两个客户端传文件，QQ采用的是P2P技术，不需要服务器中转。</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-ad39340c34e20930.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://blog.csdn.net/yipiankongbai/article/details/24435977" target="_blank" rel="external">http://blog.csdn.net/yipiankongbai/article/details/24435977</a><br><a href="http://www.jellythink.com/archives/705" target="_blank" rel="external">http://www.jellythink.com/archives/705</a><br><a href="http://www.zhihu.com/question/20292749" target="_blank" rel="external">http://www.zhihu.com/question/20292749</a><br>谢希仁《计算机网络》《图解tcp/ip》《tcp/ip详解》</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/14/黄花风铃木/" rel="next" title="黄花风铃木">
+                <i class="fa fa-chevron-left"></i> 黄花风铃木
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/05/字符串/" rel="prev" title="字符串">
+                字符串 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments"
+           data-href="https://fifi1996.github.io/2017/06/25/理解TCP-IP协议三次握手四次挥手/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg"
+                alt="Fifi Zhuang" />
+            
+              <p class="site-author-name" itemprop="name">Fifi Zhuang</p>
+              <p class="site-description motion-element" itemprop="description">爱学习爱生活的tester</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Fifi1996" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/692f7ab695d3" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-、-TCP协议的概念"><span class="nav-number">1.</span> <span class="nav-text">一 、 TCP协议的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、-TCP-UDP区别总结"><span class="nav-number">2.</span> <span class="nav-text">二、 TCP/UDP区别总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-、-三次握手四次挥手的过程"><span class="nav-number">3.</span> <span class="nav-text">三 、 三次握手四次挥手的过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、-相关问题"><span class="nav-number">4.</span> <span class="nav-text">四、 相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.1.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fifi Zhuang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: document.location.href, 
+            owner: 'Fifi1996',
+            repo: 'https://github.com/Fifi1996/Comments.git',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'baeeb7babf6a5c64fa9cf1f6b8753409715079de',
+            
+                client_id: 'c2c63042a04065f34fd4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、 系统模块——骑行 功能点–解锁     用例标号 用例说明 前置操作 操作 预期结果 备注     1 查看地图、定位 进入网页首页 定位 显示定位地址正确    2 查看车辆信息 首页地图显示有车辆图标 选择某一车辆图标 底部显示车辆信息，编号、价格、文字描述    3 解锁 没有正在进行的订单也没有未支付的订单并且已支付押金 点击解锁 进入数码开锁页面    4 解锁 没有正在进行的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="共享单车测试用例">
+<meta property="og:url" content="https://fifi1996.github.io/2017/09/10/共享单车测试用例/index.html">
+<meta property="og:site_name" content="Fifi Zhuang的博客">
+<meta property="og:description" content="一、 系统模块——骑行 功能点–解锁     用例标号 用例说明 前置操作 操作 预期结果 备注     1 查看地图、定位 进入网页首页 定位 显示定位地址正确    2 查看车辆信息 首页地图显示有车辆图标 选择某一车辆图标 底部显示车辆信息，编号、价格、文字描述    3 解锁 没有正在进行的订单也没有未支付的订单并且已支付押金 点击解锁 进入数码开锁页面    4 解锁 没有正在进行的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-2e8c89ef92905566.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-18T08:12:30.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="共享单车测试用例">
+<meta name="twitter:description" content="一、 系统模块——骑行 功能点–解锁     用例标号 用例说明 前置操作 操作 预期结果 备注     1 查看地图、定位 进入网页首页 定位 显示定位地址正确    2 查看车辆信息 首页地图显示有车辆图标 选择某一车辆图标 底部显示车辆信息，编号、价格、文字描述    3 解锁 没有正在进行的订单也没有未支付的订单并且已支付押金 点击解锁 进入数码开锁页面    4 解锁 没有正在进行的">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4975863-2e8c89ef92905566.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fifi1996.github.io/2017/09/10/共享单车测试用例/"/>
+
+
+
+
+
+  <title>共享单车测试用例 | Fifi Zhuang的博客</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<!-- 
+  <div id="hexo-helper-live2d">
+      <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+  </div>
+    <style>
+      #live2dcanvas{
+      	-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+        position: fixed;
+        width: 150px;
+        height: 300px;
+        opacity:1;
+        
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -20px;
+      }
+	  
+    </style>
+    <script src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+    if(device.mobile()){
+      document.getElementById("live2dcanvas").style.width = '75px';
+      document.getElementById("live2dcanvas").style.height = '150px';
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }else{
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }
+    })();
+    </script>
+ -->
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fifi Zhuang的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-album">
+          <a href="/album" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-board">
+          <a href="/board" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/2017/09/10/共享单车测试用例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fifi Zhuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fifi Zhuang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">共享单车测试用例</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T21:07:39+08:00">
+                2017-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件测试/" itemprop="url" rel="index">
+                    <span itemprop="name">软件测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/10/共享单车测试用例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://fifi1996.github.io/2017/09/10/共享单车测试用例/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p><img src="http://upload-images.jianshu.io/upload_images/4975863-2e8c89ef92905566.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="一、-系统模块——骑行"><a href="#一、-系统模块——骑行" class="headerlink" title="一、 系统模块——骑行"></a>一、 系统模块——骑行</h2><ul>
+<li>功能点–解锁</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>用例标号</th>
+<th>用例说明</th>
+<th>前置操作</th>
+<th>操作</th>
+<th>预期结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>查看地图、定位</td>
+<td>进入网页首页</td>
+<td>定位</td>
+<td>显示定位地址正确</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>查看车辆信息</td>
+<td>首页地图显示有车辆图标</td>
+<td>选择某一车辆图标</td>
+<td>底部显示车辆信息，编号、价格、文字描述</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>解锁</td>
+<td>没有正在进行的订单也没有未支付的订单并且已支付押金</td>
+<td>点击解锁</td>
+<td>进入数码开锁页面</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>解锁</td>
+<td>没有正在进行的订单也没有未支付的订单并且未支付押金</td>
+<td>点击解锁</td>
+<td>进入绑定手机，支付押金流程</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>解锁</td>
+<td>有未支付订单</td>
+<td>点击解锁</td>
+<td>无法解锁，有提示信息，需支付未支付订单才能解锁</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>解锁</td>
+<td>有正在进行中的订单</td>
+<td>点击解锁</td>
+<td>无法解锁，有提示信息，需结束并支付正在进行的订单才能解锁</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>绑定手机/手机认证</td>
+<td>未绑定手机</td>
+<td>输入正确手机号，正确的验证码</td>
+<td>绑定成功</td>
+<td>手机号有唯一性，11位，数字限制，</td>
+</tr>
+<tr>
+<td>8</td>
+<td>绑定手机/手机认证</td>
+<td>未绑定手机</td>
+<td>已绑定的手机号</td>
+<td>提示该号码已被绑定</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>绑定手机/手机认证</td>
+<td>未绑定手机</td>
+<td>非11位字符</td>
+<td>提示输入正确手机号</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>绑定手机/手机认证</td>
+<td>未绑定手机</td>
+<td>11位含非数字字符</td>
+<td>提示输入正确手机号</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>绑定手机/手机认证</td>
+<td>未绑定手机</td>
+<td>正确的手机号，错误的验证码</td>
+<td>提示输入正确的验证码</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>押金缴纳</td>
+<td>已绑定手机</td>
+<td>点击支付订单</td>
+<td>进入支付页面</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>输码解锁</td>
+<td>已支付押金的用户解锁</td>
+<td>输入正确单车编号且单车正常</td>
+<td>显示单车计价标准</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>输码解锁</td>
+<td>已支付押金的用户解锁</td>
+<td>输入错误的单车编号</td>
+<td>提示“设备编号输入错误，无此号码请重新输入”信息</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>输码解锁</td>
+<td>已支付押金的用户解锁</td>
+<td>输入正确单车编号且单车故障</td>
+<td>提示“很抱歉，此单车正在维护中请换一辆”</td>
+<td></td>
+</tr>
+<tr>
+<td>16</td>
+<td>开锁中</td>
+<td>输入正确单车编号，单车正常</td>
+<td>点击立即使用</td>
+<td>跳转至使用中</td>
+<td></td>
+</tr>
+<tr>
+<td>17</td>
+<td>开锁成功</td>
+<td>开锁中</td>
+<td></td>
+<td>跳转开锁成功页</td>
+<td></td>
+</tr>
+<tr>
+<td>18</td>
+<td>开锁失败</td>
+<td>开锁中</td>
+<td></td>
+<td>跳转开锁失败页</td>
+<td></td>
+</tr>
+<tr>
+<td>19</td>
+<td>再试一次</td>
+<td>开锁失败</td>
+<td>点击再试一次</td>
+<td>跳转至输码开锁页</td>
+<td></td>
+</tr>
+<tr>
+<td>20</td>
+<td>反馈问题</td>
+<td>开锁失败</td>
+<td>点击反馈问题</td>
+<td>弹出“请填写问题”的对话框</td>
+<td></td>
+</tr>
+<tr>
+<td>21</td>
+<td>取消</td>
+<td>请填写问题对话框</td>
+<td>点击取消</td>
+<td>返回开锁失败页</td>
+<td></td>
+</tr>
+<tr>
+<td>22</td>
+<td>输入框测试</td>
+<td>单车项目 所有输入框的字符数限制设置为200，没有输入或只输入空格，不能提交（提交按钮置灰）</td>
+<td>输入为空，提交</td>
+<td>提交置灰</td>
+<td></td>
+</tr>
+<tr>
+<td>23</td>
+<td>输入框测试</td>
+<td>单车项目 所有输入框的字符数限制设置为200，没有输入或只输入空格，不能提交（提交按钮置灰）</td>
+<td>输入空格，提交</td>
+<td>置灰</td>
+<td></td>
+</tr>
+<tr>
+<td>24</td>
+<td>输入框测试</td>
+<td>单车项目 所有输入框的字符数限制设置为200，没有输入或只输入空格，不能提交（提交按钮置灰）</td>
+<td>尝试输入201个字符</td>
+<td>字符限制</td>
+<td></td>
+</tr>
+<tr>
+<td>25</td>
+<td>输入框测试</td>
+<td>单车项目 所有输入框的字符数限制设置为200，没有输入或只输入空格，不能提交（提交按钮置灰）</td>
+<td>输入10个字符,提交</td>
+<td>提交成功，数据库验证</td>
+<td></td>
+</tr>
+<tr>
+<td>26</td>
+<td>使用中</td>
+<td>开锁成功</td>
+<td>点击支付订单</td>
+<td>显示时间、里程、卡路里、速度、已消费金额、管理员号码、结束骑行按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>27</td>
+<td>结束骑行</td>
+<td>使用中，时间超过三分钟</td>
+<td>点击结束骑行</td>
+<td>弹出确认信息提示</td>
+<td></td>
+</tr>
+<tr>
+<td>28</td>
+<td>取消</td>
+<td>弹出确认信息提示</td>
+<td>点击取消</td>
+<td>返回到使用中页面</td>
+<td></td>
+</tr>
+<tr>
+<td>29</td>
+<td>确定</td>
+<td>弹出确认信息提示</td>
+<td>点击确定</td>
+<td>跳转到订单详情页</td>
+<td></td>
+</tr>
+<tr>
+<td>30</td>
+<td>结束骑行 押金缴纳</td>
+<td>使用中，时间未超过三分钟</td>
+<td>点击结束骑行</td>
+<td>弹出对话框，请填写原因</td>
+<td></td>
+</tr>
+<tr>
+<td>31</td>
+<td>取消</td>
+<td>骑行未超过三分钟，对话框</td>
+<td>点击取消</td>
+<td>返回到使用中页面</td>
+<td></td>
+</tr>
+<tr>
+<td>32</td>
+<td>确定</td>
+<td>骑行未超过三分钟，对话框</td>
+<td>下拉选择，机器出现故障项</td>
+<td>有输入框</td>
+<td></td>
+</tr>
+<tr>
+<td>33</td>
+<td></td>
+<td>骑行未超过三分钟，对话框</td>
+<td>下拉选择非机器出现故障项</td>
+<td>无输入框，区域置灰</td>
+<td></td>
+</tr>
+<tr>
+<td>34</td>
+<td>原因选择 下拉框</td>
+<td>骑行未超过三分钟，对话框，点击确定</td>
+<td>下拉按钮体验</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>功能点–支付</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>用例标号</th>
+<th>用例说明</th>
+<th>前置操作</th>
+<th>操作</th>
+<th>预期结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>35</td>
+<td>去支付</td>
+<td>结束骑行-订单详情页</td>
+<td>点击去支付</td>
+<td>跳转到在线支付页</td>
+<td></td>
+</tr>
+<tr>
+<td>36</td>
+<td>支付方式</td>
+<td>支付宝支付</td>
+<td></td>
+<td>产生一条链接，点击链接，在浏览器中完成支付</td>
+<td></td>
+</tr>
+<tr>
+<td>37</td>
+<td>支付方式</td>
+<td>微信支付</td>
+<td></td>
+<td>默认支付方式</td>
+<td></td>
+</tr>
+<tr>
+<td>38</td>
+<td>体验反馈</td>
+<td>支付成功</td>
+<td>点击体验反馈</td>
+<td>意见反馈页，输入框</td>
+<td></td>
+</tr>
+<tr>
+<td>39</td>
+<td>意见反馈页输入框</td>
+<td>单车项目 所有输入框的字符数限制设置为200，没有输入或只输入空格，不能提交（提交按钮置灰）</td>
+<td>输入为空，提交</td>
+<td>提交置灰</td>
+<td></td>
+</tr>
+<tr>
+<td>40</td>
+<td>意见反馈页输入框</td>
+<td></td>
+<td>输入空格，提交</td>
+<td>置灰</td>
+<td></td>
+</tr>
+<tr>
+<td>41</td>
+<td>意见反馈页输入框</td>
+<td></td>
+<td>尝试输入201个字符</td>
+<td>字符限制</td>
+<td></td>
+</tr>
+<tr>
+<td>42</td>
+<td>意见反馈页输入框</td>
+<td></td>
+<td>输入10个字符</td>
+<td>提交成功，数据库验证</td>
+<td></td>
+</tr>
+<tr>
+<td>43</td>
+<td>返回首页</td>
+<td>支付成功</td>
+<td>点击返回首页</td>
+<td>返回首页</td>
+<td></td>
+</tr>
+<tr>
+<td>44</td>
+<td>重新支付</td>
+<td>支付失败</td>
+<td>点击重新支付</td>
+<td>跳转到在线支付页</td>
+<td></td>
+</tr>
+<tr>
+<td>45</td>
+<td>返回首页</td>
+<td>支付失败</td>
+<td>点击返回首页</td>
+<td>跳转到首页</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二、系统模块——个人中心"><a href="#二、系统模块——个人中心" class="headerlink" title="二、系统模块——个人中心"></a>二、系统模块——个人中心</h2><table>
+<thead>
+<tr>
+<th>功能点</th>
+<th>用例标号</th>
+<th>用例说明</th>
+<th>前置操作</th>
+<th>操作</th>
+<th>预期结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进入个人中心</td>
+<td>46</td>
+<td>个人中心按钮</td>
+<td>首页</td>
+<td>点击左上按钮</td>
+<td>进入个人中心</td>
+</tr>
+<tr>
+<td>头像</td>
+<td>47</td>
+<td>图片显示，更换，按钮</td>
+<td>个人中心</td>
+<td>点击头像</td>
+<td>图片无破裂，显示完全，更换微信头像后此头像更换，点击进入修改资料页</td>
+</tr>
+<tr>
+<td>记录</td>
+<td>48</td>
+<td>只读</td>
+<td>个人中心</td>
+<td></td>
+<td>显示里程、卡路里、时间</td>
+</tr>
+<tr>
+<td>锻炼日志</td>
+<td>49</td>
+<td>按钮</td>
+<td>个人中心</td>
+<td>点击</td>
+<td>锻炼日志页</td>
+</tr>
+<tr>
+<td>我的钱包</td>
+<td>50</td>
+<td>按钮</td>
+<td>个人中心</td>
+<td>点击</td>
+<td>我的钱包页</td>
+</tr>
+<tr>
+<td>意见反馈</td>
+<td>51</td>
+<td>按钮</td>
+<td>个人中心</td>
+<td>点击</td>
+<td>意见反馈页</td>
+</tr>
+<tr>
+<td>用户协议</td>
+<td>52</td>
+<td>按钮</td>
+<td>个人中心</td>
+<td>点击</td>
+<td>用户协议页</td>
+</tr>
+<tr>
+<td>管理员</td>
+<td>53</td>
+<td>按钮</td>
+<td>个人中心/有管理员权限</td>
+<td>点击</td>
+<td>我的车辆列表页</td>
+</tr>
+<tr>
+<td>管理员</td>
+<td>54</td>
+<td>按钮</td>
+<td>无管理员权限</td>
+<td>点击</td>
+<td>提示，非管理员</td>
+</tr>
+<tr>
+<td>关于我们</td>
+<td>55</td>
+<td>按钮</td>
+<td>个人中心</td>
+<td>点击</td>
+<td>跳转到关于我们页</td>
+</tr>
+<tr>
+<td>修改资料</td>
+<td>56</td>
+<td>更改手机号</td>
+<td>修改资料页</td>
+<td>点击手机号码栏</td>
+<td>跳转到绑定手机页</td>
+<td>直接输入新手机号码，正确的验证码即可绑定</td>
+</tr>
+</tbody>
+</table>
+<h2 id="三、系统模块——管理员"><a href="#三、系统模块——管理员" class="headerlink" title="三、系统模块——管理员"></a>三、系统模块——管理员</h2><ul>
+<li>功能点–我的车辆列表页</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>用例标号</th>
+<th>用例说明</th>
+<th>前置操作</th>
+<th>操作</th>
+<th>预期结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>57</td>
+<td>显示</td>
+<td></td>
+<td></td>
+<td>显示图片，编号，状态，地址，按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>58</td>
+<td>报警信息</td>
+<td>有报警信息</td>
+<td>点击显示/隐藏按钮</td>
+<td>实现显示/隐藏</td>
+<td></td>
+</tr>
+<tr>
+<td>59</td>
+<td>解除报警按钮</td>
+<td>有报警信息</td>
+<td>点击</td>
+<td>弹出确定解除警报提示</td>
+<td></td>
+</tr>
+<tr>
+<td>60</td>
+<td>确定解除警报</td>
+<td>弹出确定解除警报提示</td>
+<td>确定</td>
+<td>警报解除</td>
+<td></td>
+</tr>
+<tr>
+<td>61</td>
+<td>取消解除警报</td>
+<td>弹出确定解除警报提示</td>
+<td>取消</td>
+<td>警报未解除，返回车辆列表页</td>
+<td></td>
+</tr>
+<tr>
+<td>62</td>
+<td>发生故障按钮</td>
+<td></td>
+<td>点击</td>
+<td>弹出填写故障情况输入框</td>
+<td></td>
+</tr>
+<tr>
+<td>63</td>
+<td>输入框测试</td>
+<td>单车项目 所有输入框的字符数限制设置为200，没有输入或只输入空格，不能提交（提交按钮置灰）</td>
+<td>输入为空，提交</td>
+<td>提交置灰</td>
+<td></td>
+</tr>
+<tr>
+<td>64</td>
+<td>输入框测试</td>
+<td></td>
+<td>输入空格，提交</td>
+<td>置灰</td>
+<td></td>
+</tr>
+<tr>
+<td>65</td>
+<td>输入框测试</td>
+<td></td>
+<td>尝试输入201个字符</td>
+<td>字符限制</td>
+<td></td>
+</tr>
+<tr>
+<td>66</td>
+<td>输入框测试</td>
+<td></td>
+<td>输入10个字符,提交</td>
+<td>提交成功，数据库验证</td>
+</tr>
+</tbody>
+</table>
+<p>本文参考自<br><a href="https://wenku.baidu.com/view/03dc0ee6370cba1aa8114431b90d6c85ec3a88b0.html" target="_blank" rel="external">https://wenku.baidu.com/view/03dc0ee6370cba1aa8114431b90d6c85ec3a88b0.html</a><br>如有错误欢迎指正</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/23/帝都租房那些事/" rel="next" title="帝都租房那些事">
+                <i class="fa fa-chevron-left"></i> 帝都租房那些事
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/15/adb的使用以及常见问题/" rel="prev" title="adb的使用以及常见问题">
+                adb的使用以及常见问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments"
+           data-href="https://fifi1996.github.io/2017/09/10/共享单车测试用例/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg"
+                alt="Fifi Zhuang" />
+            
+              <p class="site-author-name" itemprop="name">Fifi Zhuang</p>
+              <p class="site-description motion-element" itemprop="description">爱学习爱生活的tester</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Fifi1996" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/692f7ab695d3" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-系统模块——骑行"><span class="nav-number">1.</span> <span class="nav-text">一、 系统模块——骑行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、系统模块——个人中心"><span class="nav-number">2.</span> <span class="nav-text">二、系统模块——个人中心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、系统模块——管理员"><span class="nav-number">3.</span> <span class="nav-text">三、系统模块——管理员</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fifi Zhuang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: document.location.href, 
+            owner: 'Fifi1996',
+            repo: 'https://github.com/Fifi1996/Comments.git',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'baeeb7babf6a5c64fa9cf1f6b8753409715079de',
+            
+                client_id: 'c2c63042a04065f34fd4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
