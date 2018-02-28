@@ -87,7 +87,7 @@
 <meta property="og:description" content="平常我们在购物付款时，使用手机中的微信或支付宝扫一扫即可完成支付，无需像以前携带现金等着商户找零钱。线下扫码支付大大的提高了我们付款的效率，今天就主要谈一谈扫码支付的实现流程，让我们享受快捷的同时，也了解其中的原理。 二维码——信息的载体二维码现在已经悄悄得走进我们的身边，改变着我们的日常生活方式。然而我们对这个新生的事物即熟悉又陌生，知道它功能很强大，能为我们的生活带来很大的便利性，但是我">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-4b7cea93e6bb81fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-04T02:33:37.371Z">
+<meta property="og:updated_time" content="2018-02-28T06:47:19.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="扫码支付的逻辑实现">
 <meta name="twitter:description" content="平常我们在购物付款时，使用手机中的微信或支付宝扫一扫即可完成支付，无需像以前携带现金等着商户找零钱。线下扫码支付大大的提高了我们付款的效率，今天就主要谈一谈扫码支付的实现流程，让我们享受快捷的同时，也了解其中的原理。 二维码——信息的载体二维码现在已经悄悄得走进我们的身边，改变着我们的日常生活方式。然而我们对这个新生的事物即熟悉又陌生，知道它功能很强大，能为我们的生活带来很大的便利性，但是我">
@@ -429,8 +429,7 @@
 <p>　　比如定义支付链接的格式为“https//qr.wx.com……”,每次检测到该链接开头的，就请求服务器去校验该支付链接的有效性。</p>
 <p>　　此外，还需要定义平台自有的解析规则，如微信识别为付款码是以13开头，微信检测到数字内容是以13开头的，会先去匹配其是否符合付款码的规则，符合的话才会进行后续的解析，如下图所示：<br><img src="http://upload-images.jianshu.io/upload_images/4975863-4b7cea93e6bb81fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <p>以上说的是主扫，也就是用户扫商家；对于商家扫用户，原理是一样的，只不过用户的付款码中包含的是识别该用户的专属ID，商家通过收银系统向微信或支付宝提交订单时，把扫码枪识别出来的信息传递给微信或支付宝，他们根据这个专属ID找到对应的用户，通过代扣直接就扣款了。</p>
-<p>#####文章来源：<a href="https://mp.weixin.qq.com/s?__biz=MjM5NTU0MDg0MA==&amp;mid=2651235237&amp;idx=4&amp;sn=931e84c8fda7a8e79c600abd1f639272&amp;chksm=bd04f9a28a7370b4b90b1e93d758edee0437d8e78a3c9c6d605d2194111eb25f72fef38ef952&amp;mpshare=1&amp;scene=1&amp;srcid=1211AQqmfPgwhmu9omDb1GM6##" target="_blank" rel="external">51Testing软件测试网</a></p>
-
+<h4 id="文章来源：51Testing软件测试网"><a href="#文章来源：51Testing软件测试网" class="headerlink" title="文章来源：51Testing软件测试网"></a>文章来源：<a href="https://mp.weixin.qq.com/s?__biz=MjM5NTU0MDg0MA==&amp;mid=2651235237&amp;idx=4&amp;sn=931e84c8fda7a8e79c600abd1f639272&amp;chksm=bd04f9a28a7370b4b90b1e93d758edee0437d8e78a3c9c6d605d2194111eb25f72fef38ef952&amp;mpshare=1&amp;scene=1&amp;srcid=1211AQqmfPgwhmu9omDb1GM6##" target="_blank" rel="external">51Testing软件测试网</a></h4>
       
     </div>
     
@@ -610,6 +609,12 @@
                       <i class="fa fa-fw fa-globe"></i>简书</a>
                 </span>
               
+                <span class="links-of-author-item">
+                  <a href="https://www.facebook.com/莊玉菲" target="_blank" title="FB Page">
+                    
+                      <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                </span>
+              
             
           </div>
 
@@ -634,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#二维码——信息的载体"><span class="nav-number">1.</span> <span class="nav-text">二维码——信息的载体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维码识别——APP校验及后台解析"><span class="nav-number">2.</span> <span class="nav-text">二维码识别——APP校验及后台解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扫码支付流程的关键步骤"><span class="nav-number">3.</span> <span class="nav-text">扫码支付流程的关键步骤</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#二维码——信息的载体"><span class="nav-number">1.</span> <span class="nav-text">二维码——信息的载体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维码识别——APP校验及后台解析"><span class="nav-number">2.</span> <span class="nav-text">二维码识别——APP校验及后台解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扫码支付流程的关键步骤"><span class="nav-number">3.</span> <span class="nav-text">扫码支付流程的关键步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文章来源：51Testing软件测试网"><span class="nav-number">4.</span> <span class="nav-text">文章来源：51Testing软件测试网</span></a></li></ol></div>
             
 
           </div>
