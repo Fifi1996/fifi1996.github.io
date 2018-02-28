@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取。所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。在线SSL服务器测试 一、HTTPS工作过程HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。具体是如何进行加密，解密，验证的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ＨＴＴＰＳ工作过程及加密算法">
+<meta property="og:url" content="https://fifi1996.github.io/2018/02/28/HTTPS工作过程及加密算法/index.html">
+<meta property="og:site_name" content="Fifi Zhuang的博客">
+<meta property="og:description" content="我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取。所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。在线SSL服务器测试 一、HTTPS工作过程HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。具体是如何进行加密，解密，验证的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic002.cnblogs.com/images/2012/38542/2012072310244445.png">
+<meta property="og:image" content="https://images0.cnblogs.com/blog/442200/201410/121924258581724.png">
+<meta property="og:updated_time" content="2018-02-28T11:18:39.627Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ＨＴＴＰＳ工作过程及加密算法">
+<meta name="twitter:description" content="我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取。所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。在线SSL服务器测试 一、HTTPS工作过程HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。具体是如何进行加密，解密，验证的">
+<meta name="twitter:image" content="https://pic002.cnblogs.com/images/2012/38542/2012072310244445.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fifi1996.github.io/2018/02/28/HTTPS工作过程及加密算法/"/>
+
+
+
+
+
+  <title>ＨＴＴＰＳ工作过程及加密算法 | Fifi Zhuang的博客</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<!-- 
+  <div id="hexo-helper-live2d">
+      <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+  </div>
+    <style>
+      #live2dcanvas{
+      	-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+        position: fixed;
+        width: 150px;
+        height: 300px;
+        opacity:1;
+        
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -20px;
+      }
+	  
+    </style>
+    <script src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+    if(device.mobile()){
+      document.getElementById("live2dcanvas").style.width = '75px';
+      document.getElementById("live2dcanvas").style.height = '150px';
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }else{
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }
+    })();
+    </script>
+ -->
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fifi Zhuang的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-album">
+          <a href="/album" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-board">
+          <a href="/board" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/2018/02/28/HTTPS工作过程及加密算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fifi Zhuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fifi Zhuang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ＨＴＴＰＳ工作过程及加密算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-28T18:51:28+08:00">
+                2018-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/28/HTTPS工作过程及加密算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://fifi1996.github.io/2018/02/28/HTTPS工作过程及加密算法/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取。所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。<br><a href="https://www.ssllabs.com/ssltest/" target="_blank" rel="external">在线SSL服务器测试</a></p>
+<h2 id="一、HTTPS工作过程"><a href="#一、HTTPS工作过程" class="headerlink" title="一、HTTPS工作过程"></a>一、HTTPS工作过程</h2><p>HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。具体是如何进行加密，解密，验证的，且看下图。<br><img src="https://pic002.cnblogs.com/images/2012/38542/2012072310244445.png" alt=""></p>
+<h3 id="1-客户端发起HTTPS请求"><a href="#1-客户端发起HTTPS请求" class="headerlink" title="1. 客户端发起HTTPS请求"></a>1. 客户端发起HTTPS请求</h3><p>这个没什么好说的，就是用户在浏览器里输入一个https网址，然后连接到server的443端口。</p>
+<h3 id="2-服务端的配置"><a href="#2-服务端的配置" class="headerlink" title="2. 服务端的配置"></a>2. 服务端的配置</h3><p>采用HTTPS协议的服务器必须要有一套数字证书，可以自己制作，也可以向组织申请。区别就是自己颁发的证书需要客户端验证通过，才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面(startssl就是个不错的选择，有1年的免费服务)。这套证书其实就是一对公钥和私钥。如果对公钥和私钥不太理解，可以想象成一把钥匙和一个锁头，只是全世界只有你一个人有这把钥匙，你可以把锁头给别人，别人可以用这个锁把重要的东西锁起来，然后发给你，因为只有你一个人有这把钥匙，所以只有你才能看到被这把锁锁起来的东西。</p>
+<h3 id="3-传送证书"><a href="#3-传送证书" class="headerlink" title="3. 传送证书"></a>3. 传送证书</h3><p>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构，过期时间等等。</p>
+<h3 id="4-客户端解析证书"><a href="#4-客户端解析证书" class="headerlink" title="4. 客户端解析证书"></a>4. 客户端解析证书</h3><p>这部分工作是有客户端的TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警告框，提示证书存在问题。如果证书没有问题，那么就生成一个随即值。然后用证书对该随机值进行加密。就好像上面说的，把随机值用锁头锁起来，这样除非有钥匙，不然看不到被锁住的内容。</p>
+<h3 id="5-传送加密信息"><a href="#5-传送加密信息" class="headerlink" title="5. 传送加密信息"></a>5. 传送加密信息</h3><p>这部分传送的是用证书加密后的随机值，目的就是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</p>
+<h3 id="6-服务段解密信息"><a href="#6-服务段解密信息" class="headerlink" title="6. 服务段解密信息"></a>6. 服务段解密信息</h3><p>服务端用私钥解密后，得到了客户端传过来的随机值(私钥)，然后把内容通过该值进行对称加密。所谓对称加密就是，将信息和私钥通过某种算法混合在一起，这样除非知道私钥，不然无法获取内容，而正好客户端和服务端都知道这个私钥，所以只要加密算法够彪悍，私钥够复杂，数据就够安全。</p>
+<h3 id="7-传输加密后的信息"><a href="#7-传输加密后的信息" class="headerlink" title="7. 传输加密后的信息"></a>7. 传输加密后的信息</h3><p>这部分信息是服务段用私钥加密后的信息，可以在客户端被还原</p>
+<h3 id="8-客户端解密信息"><a href="#8-客户端解密信息" class="headerlink" title="8. 客户端解密信息"></a>8. 客户端解密信息</h3><p>客户端用之前生成的私钥解密服务段传过来的信息，于是获取了解密后的内容。整个过程第三方即使监听到了数据，也束手无策。</p>
+<h2 id="二、加密算法"><a href="#二、加密算法" class="headerlink" title="二、加密算法"></a>二、加密算法</h2><p>HTTPS一般使用的加密与HASH算法如下：</p>
+<ul>
+<li>非对称加密算法：RSA，DSA/DSS</li>
+<li>对称加密算法：AES，RC4，3DES</li>
+<li>HASH算法：MD5，SHA1，SHA256<h3 id="１-对称加密（Symmetric-Cryptography）"><a href="#１-对称加密（Symmetric-Cryptography）" class="headerlink" title="１. 对称加密（Symmetric Cryptography）"></a>１. 对称加密（Symmetric Cryptography）</h3>对称加密是最快速、最简单的一种加密方式，加密（encryption）与解密（decryption）用的是同样的密钥（secret key）。对称加密有很多种算法，由于它效率很高，所以被广泛使用在很多加密协议的核心当中。<br>对称加密通常使用的是相对较小的密钥，一般小于256 bit。因为密钥越大，加密越强，但加密与解密的过程越慢。如果你只用1 bit来做这个密钥，那黑客们可以先试着用0来解密，不行的话就再用1解；但如果你的密钥有1 MB大，黑客们可能永远也无法破解，但加密和解密的过程要花费很长的时间。密钥的大小既要照顾到安全性，也要照顾到效率，是一个trade-off。<br>2000年10月2日，美国国家标准与技术研究所（NIST–<em>American National Institute of Standards and Technology</em>）选择了Rijndael算法作为新的高级加密标准（AES–<em>Advanced</em> <em>Encryption</em> <em>Standard）。</em>.NET中包含了Rijndael算法，类名叫RijndaelManaged，下面举个例子。</li>
+</ul>
+<p>加密过程：</p>
+<pre><code>private string myData = &quot;hello&quot;;     
+private string myPassword = &quot;OpenSesame&quot;;
+private byte[] cipherText;
+private byte[] salt = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0x0 };
+
+    private void mnuSymmetricEncryption_Click(object sender, RoutedEventArgs e)
+    {
+        var key = new Rfc2898DeriveBytes(myPassword, salt);
+        // Encrypt the data.
+        var algorithm = new RijndaelManaged();
+        algorithm.Key = key.GetBytes(16);
+        algorithm.IV = key.GetBytes(16);
+        var sourceBytes = new System.Text.UnicodeEncoding().GetBytes(myData);
+        using (var sourceStream = new MemoryStream(sourceBytes))
+        using (var destinationStream = new MemoryStream())
+        using (var crypto = new CryptoStream(sourceStream, algorithm.CreateEncryptor(), CryptoStreamMode.Read))
+        {
+            moveBytes(crypto, destinationStream);
+            cipherText = destinationStream.ToArray();
+        }
+        MessageBox.Show(String.Format(&quot;Data:{0}{1}Encrypted and Encoded:{2}&quot;, myData, Environment.NewLine, Convert.ToBase64String(cipherText)));
+    }
+    private void moveBytes(Stream source, Stream dest)
+    {
+        byte[] bytes = new byte[2048];
+        var count = source.Read(bytes, 0, bytes.Length);
+        while (0 != count)
+        {
+            dest.Write(bytes, 0, count);
+            count = source.Read(bytes, 0, bytes.Length);
+        }
+    }
+</code></pre><p>解密过程：</p>
+<pre><code>private void mnuSymmetricDecryption_Click(object sender, RoutedEventArgs e)
+    {
+        if (cipherText == null)
+        {
+            MessageBox.Show(&quot;Encrypt Data First!&quot;);
+            return;
+        }
+        var key = new Rfc2898DeriveBytes(myPassword, salt);
+        // Try to decrypt, thus showing it can be round-tripped.
+        var algorithm = new RijndaelManaged();
+        algorithm.Key = key.GetBytes(16);
+        algorithm.IV = key.GetBytes(16);
+        using (var sourceStream = new MemoryStream(cipherText))
+        using (var destinationStream = new MemoryStream())
+        using (var crypto = new CryptoStream(sourceStream, algorithm.CreateDecryptor(), CryptoStreamMode.Read))
+        {
+            moveBytes(crypto, destinationStream);
+            var decryptedBytes = destinationStream.ToArray();
+            var decryptedMessage = new UnicodeEncoding().GetString(
+            decryptedBytes);
+            MessageBox.Show(decryptedMessage);
+        }
+    }
+</code></pre><p>对称加密的一大缺点是密钥的管理与分配，换句话说，如何把密钥发送到需要解密你的消息的人的手里是一个问题。在发送密钥的过程中，密钥有很大的风险会被黑客们拦截。现实中通常的做法是将对称加密的密钥进行非对称加密，然后传送给需要它的人。</p>
+<h3 id="２-非对称加密（Asymmetric-Cryptography）"><a href="#２-非对称加密（Asymmetric-Cryptography）" class="headerlink" title="２. 非对称加密（Asymmetric Cryptography）"></a>２. 非对称加密（Asymmetric Cryptography）</h3><p>非对称加密为数据的加密与解密提供了一个非常安全的方法，它使用了一对密钥，公钥（public key）和私钥（private key）。私钥只能由一方安全保管，不能外泄，而公钥则可以发给任何请求它的人。非对称加密使用这对密钥中的一个进行加密，而解密则需要另一个密钥。比如，你向银行请求公钥，银行将公钥发给你，你使用公钥对消息加密，那么只有私钥的持有人–银行才能对你的消息解密。与对称加密不同的是，银行不需要将私钥通过网络发送出去，因此安全性大大提高。<br>目前最常用的非对称加密算法是RSA算法，是Rivest, Shamir, 和Adleman于1978年发明，他们那时都是在MIT。.NET中也有RSA算法，请看下面的例子：<br>加密过程：</p>
+<pre><code>private byte[] rsaCipherText;
+    private void mnuAsymmetricEncryption_Click(object sender, RoutedEventArgs e)
+    {
+        var rsa = 1;
+        // Encrypt the data.
+        var cspParms = new CspParameters(rsa);
+        cspParms.Flags = CspProviderFlags.UseMachineKeyStore;
+        cspParms.KeyContainerName = &quot;My Keys&quot;;
+        var algorithm = new RSACryptoServiceProvider(cspParms);
+        var sourceBytes = new UnicodeEncoding().GetBytes(myData);
+        rsaCipherText = algorithm.Encrypt(sourceBytes, true);
+        MessageBox.Show(String.Format(&quot;Data: {0}{1}Encrypted and Encoded: {2}&quot;,
+            myData, Environment.NewLine,
+            Convert.ToBase64String(rsaCipherText)));
+    }
+</code></pre><p>解密过程：</p>
+<pre><code>private void mnuAsymmetricDecryption_Click(object sender, RoutedEventArgs e)
+    {
+        if(rsaCipherText==null)
+        {
+            MessageBox.Show(&quot;Encrypt First!&quot;);
+            return;
+        }
+        var rsa = 1;
+        // decrypt the data.
+        var cspParms = new CspParameters(rsa);
+        cspParms.Flags = CspProviderFlags.UseMachineKeyStore;
+        cspParms.KeyContainerName = &quot;My Keys&quot;;
+        var algorithm = new RSACryptoServiceProvider(cspParms);
+        var unencrypted = algorithm.Decrypt(rsaCipherText, true);
+        MessageBox.Show(new UnicodeEncoding().GetString(unencrypted));
+    }
+</code></pre><p>虽然非对称加密很安全，但是和对称加密比起来，它非常的慢，所以我们还是要用对称加密来传送消息，但对称加密所使用的密钥我们可以通过非对称加密的方式发送出去。<br>了解释这个过程，请看下面的例子：<br>（１）Alice需要在银行的网站做一笔交易，她的浏览器首先生成了一个随机数作为对称密钥。<br>（2） Alice的浏览器向银行的网站请求公钥。<br>（3） 银行将公钥发送给Alice。<br>（4） Alice的浏览器使用银行的公钥将自己的对称密钥加密。<br>（5） Alice的浏览器将加密后的对称密钥发送给银行。<br>（6） 银行使用私钥解密得到Alice浏览器的对称密钥。<br>（7） Alice与银行可以使用对称密钥来对沟通的内容进行加密与解密了。</p>
+<h3 id="３-总结"><a href="#３-总结" class="headerlink" title="３. 总结"></a>３. 总结</h3><p>（1） 对称加密加密与解密使用的是同样的密钥，所以速度快，但由于需要将密钥在网络传输，所以安全性不高。<br>（2） 非对称加密使用了一对密钥，公钥与私钥，所以安全性高，但加密与解密速度慢。<br>（3） 解决的办法是将对称加密的密钥使用非对称加密的公钥进行加密，然后发送出去，接收方使用私钥进行解密得到对称加密的密钥，然后双方可以使用对称加密来进行沟通。<br><a href="https://images0.cnblogs.com/blog/442200/201410/121924251089094.png" target="_blank" rel="external"><img src="https://images0.cnblogs.com/blog/442200/201410/121924258581724.png" alt="" title="image_thumb3"></a></p>
+<h4 id="参考来自"><a href="#参考来自" class="headerlink" title="参考来自"></a>参考来自</h4><p><a href="http://www.cnblogs.com/zhuqil/archive/2012/07/23/2604572.html" target="_blank" rel="external">朱祁林－博客园</a><br><a href="http://www.cnblogs.com/jfzhu/p/4020928.html" target="_blank" rel="external">JF Zhu 的博客</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/28/HTTP长连接和短连接/" rel="next" title="HTTP长连接和短连接">
+                <i class="fa fa-chevron-left"></i> HTTP长连接和短连接
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments"
+           data-href="https://fifi1996.github.io/2018/02/28/HTTPS工作过程及加密算法/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg"
+                alt="Fifi Zhuang" />
+            
+              <p class="site-author-name" itemprop="name">Fifi Zhuang</p>
+              <p class="site-description motion-element" itemprop="description">爱学习爱生活的tester</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Fifi1996" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/692f7ab695d3" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://testerhome.com/Fifi1996" target="_blank" title="testerhome">
+                    
+                      <i class="fa fa-fw fa-globe"></i>testerhome</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.facebook.com/profile.php?id=100010046321012" target="_blank" title="FB Page">
+                    
+                      <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、HTTPS工作过程"><span class="nav-number">1.</span> <span class="nav-text">一、HTTPS工作过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-客户端发起HTTPS请求"><span class="nav-number">1.1.</span> <span class="nav-text">1. 客户端发起HTTPS请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-服务端的配置"><span class="nav-number">1.2.</span> <span class="nav-text">2. 服务端的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-传送证书"><span class="nav-number">1.3.</span> <span class="nav-text">3. 传送证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-客户端解析证书"><span class="nav-number">1.4.</span> <span class="nav-text">4. 客户端解析证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-传送加密信息"><span class="nav-number">1.5.</span> <span class="nav-text">5. 传送加密信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-服务段解密信息"><span class="nav-number">1.6.</span> <span class="nav-text">6. 服务段解密信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-传输加密后的信息"><span class="nav-number">1.7.</span> <span class="nav-text">7. 传输加密后的信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-客户端解密信息"><span class="nav-number">1.8.</span> <span class="nav-text">8. 客户端解密信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、加密算法"><span class="nav-number">2.</span> <span class="nav-text">二、加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#１-对称加密（Symmetric-Cryptography）"><span class="nav-number">2.1.</span> <span class="nav-text">１. 对称加密（Symmetric Cryptography）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#２-非对称加密（Asymmetric-Cryptography）"><span class="nav-number">2.2.</span> <span class="nav-text">２. 非对称加密（Asymmetric Cryptography）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#３-总结"><span class="nav-number">2.3.</span> <span class="nav-text">３. 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考来自"><span class="nav-number">2.3.1.</span> <span class="nav-text">参考来自</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fifi Zhuang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: document.location.href, 
+            owner: 'Fifi1996',
+            repo: 'https://github.com/Fifi1996/Comments.git',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'baeeb7babf6a5c64fa9cf1f6b8753409715079de',
+            
+                client_id: 'c2c63042a04065f34fd4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
