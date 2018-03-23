@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在前面一篇博客，介绍了 Selenium 的基本用法和爬虫开发过程中经常使用的一些小技巧，利用这些写出一个浏览器爬虫已经完全没有问题了。看了前一篇博客，可能有人会有疑惑，浏览器爬虫的优势感觉并不比传统爬虫多多少啊，特别是通过遍历页面元素来获取爬虫数据的方式和传统爬虫解析 HTML 文档结构的方式如出一辙。为了体现浏览器爬虫的优越性，我特意准备了这篇博客，来看看如果要破解滑块验证码，浏览器爬虫比传统">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Python+Selenium破解滑块验证码">
+<meta property="og:url" content="https://fifi1996.github.io/2018/03/23/使用Python-Selenium破解滑块验证码/index.html">
+<meta property="og:site_name" content="Fifi Zhuang的博客">
+<meta property="og:description" content="在前面一篇博客，介绍了 Selenium 的基本用法和爬虫开发过程中经常使用的一些小技巧，利用这些写出一个浏览器爬虫已经完全没有问题了。看了前一篇博客，可能有人会有疑惑，浏览器爬虫的优势感觉并不比传统爬虫多多少啊，特别是通过遍历页面元素来获取爬虫数据的方式和传统爬虫解析 HTML 文档结构的方式如出一辙。为了体现浏览器爬虫的优越性，我特意准备了这篇博客，来看看如果要破解滑块验证码，浏览器爬虫比传统">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-7469b1e011843313..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-6a7fed38a699a5b9..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-7fef775ec5286be3..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-cd7349988e029f7b..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-3699c5db31584e51..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-ad9c4d182b2f6868..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-ea5c70c4551cc58b..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-23T09:47:24.404Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Python+Selenium破解滑块验证码">
+<meta name="twitter:description" content="在前面一篇博客，介绍了 Selenium 的基本用法和爬虫开发过程中经常使用的一些小技巧，利用这些写出一个浏览器爬虫已经完全没有问题了。看了前一篇博客，可能有人会有疑惑，浏览器爬虫的优势感觉并不比传统爬虫多多少啊，特别是通过遍历页面元素来获取爬虫数据的方式和传统爬虫解析 HTML 文档结构的方式如出一辙。为了体现浏览器爬虫的优越性，我特意准备了这篇博客，来看看如果要破解滑块验证码，浏览器爬虫比传统">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4975863-7469b1e011843313..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fifi1996.github.io/2018/03/23/使用Python-Selenium破解滑块验证码/"/>
+
+
+
+
+
+  <title>使用Python+Selenium破解滑块验证码 | Fifi Zhuang的博客</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<!-- 
+  <div id="hexo-helper-live2d">
+      <canvas id="live2dcanvas" width="150" height="300" class="live2d"></canvas>
+  </div>
+    <style>
+      #live2dcanvas{
+      	-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+        position: fixed;
+        width: 150px;
+        height: 300px;
+        opacity:1;
+        
+        right: 0px;
+        z-index: 999;
+        pointer-events: none;
+        bottom: -20px;
+      }
+	  
+    </style>
+    <script src="/live2d/device.min.js"></script>
+    <script type="text/javascript">
+    (function(){
+    if(device.mobile()){
+      document.getElementById("live2dcanvas").style.width = '75px';
+      document.getElementById("live2dcanvas").style.height = '150px';
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }else{
+      document.write('<script type="text/javascript" src="/live2d/script.js"><\/script>');
+      document.write('<script>loadlive2d("live2dcanvas", "/live2d/assets/z16.model.json", 0.5)<\/script>');
+    }
+    })();
+    </script>
+ -->
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fifi Zhuang的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-album">
+          <a href="/album" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-board">
+          <a href="/board" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fifi1996.github.io/2018/03/23/使用Python-Selenium破解滑块验证码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fifi Zhuang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fifi Zhuang的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Python+Selenium破解滑块验证码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T17:46:18+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件测试/" itemprop="url" rel="index">
+                    <span itemprop="name">软件测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/23/使用Python-Selenium破解滑块验证码/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://fifi1996.github.io/2018/03/23/使用Python-Selenium破解滑块验证码/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前面一篇博客，介绍了 Selenium 的基本用法和爬虫开发过程中经常使用的一些小技巧，利用这些写出一个浏览器爬虫已经完全没有问题了。看了前一篇博客，可能有人会有疑惑，浏览器爬虫的优势感觉并不比传统爬虫多多少啊，特别是通过遍历页面元素来获取爬虫数据的方式和传统爬虫解析 HTML 文档结构的方式如出一辙。为了体现浏览器爬虫的优越性，我特意准备了这篇博客，来看看如果要破解滑块验证码，浏览器爬虫比传统爬虫要容易多少。</p>
+<h2 id="一、滑块验证码简述"><a href="#一、滑块验证码简述" class="headerlink" title="一、滑块验证码简述"></a>一、滑块验证码简述</h2><p>有爬虫，自然就有反爬虫，就像病毒和杀毒软件一样，有攻就有防，两者彼此推进发展。反爬技术历经多年，从最简单的检测 UserAgent 或者 Referrer 等头部，到限制访问频率封 IP 等手段，到关键路径的行为识别，到前端页面的混淆和加密，到目前最流行的验证码技术，可以说，为了防止网络上大量爬虫的肆意妄为，特别是一些垃圾机器人，技术人员真的是绞尽脑汁。但是道高一尺魔高一丈，直到目前为止，也并没有完全无懈可击的反爬方案。</p>
+<p>目前最流行的反爬技术是验证码，几乎所有网站的注册页面都会用到验证码技术，为了防止爬虫自动注册，批量生成垃圾账号。验证码技术从一诞生，就是黑客们最感兴趣的话题，验证码的英文为 CAPTCHA（Completely Automated Public Turing test to tell Computers and Humans Apart），翻译成中文就是 全自动区分计算机和人类的公开图灵测试，它是一种可以区分用户是计算机还是人的测试，只要能通过 CAPTCHA 测试，该用户就可以被认为是人类。使用计算机模拟人类的行为一直以来都是黑客们最热衷的事情，也是黑客们梦寐以求的理想。所以验证码技术从一提出，就有大量的人尝试破解，其实这些人并不是为了制造垃圾爬虫，他们只是相信计算机可以和人一样，阿西莫夫的机器人世界在未来是可能的。</p>
+<p>最初的验证码只是一张图片，图片上显示扭曲变形的文字和数字，这样的验证码通过图像处理和识别的技术可以达到很高的识别率。后来验证码技术又在图片上加入了各种干扰项，并且将字符粘连在一起，增加了字符切割和识别的难度，但是很快人们就想出了很多种不同的去噪方法，并使用骨架算法切割粘连字符，还有些人提出使用机器学习算法来切割字符。和图片验证码类似的是语音验证码，不过这种验证码只是在表现形式上有所区别，实质上和图片并没有太大的变化，采用语音识别技术破解也不是难事。而且语音和图片比起来缺乏交互，花样要少很多，识别难度也要低一些，所以只有在给盲人或者对颜色分辨有障碍的人提供服务时才可能会使用语音验证码，一般情况下使用的比较少。在静态的图片验证码被破解之后，又出现了动态的图片验证码，将字符动态的显示在 gif 动画上，不过这也没什么用，通过图像识别技术一样可以破解，实在破解不了的，还可以通过网上一些廉价的打码平台来人肉识别。</p>
+<p>打码平台的诞生可以说是验证码领域的一件大事，它虽然不是什么高科技，只是把全世界廉价的劳动力汇集在了一起，就这样，再复杂的验证码都不在话下。这虽然不是什么光荣的事，但是它推动了验证码技术的发展，交互式验证码被开发出来。传统的图片验证码采用一问一答的形式，只要答案正确，就认为验证通过，它并不关心答案是怎么来的，所以出现了一些人工打码平台，你提供一个问题，它们提供一个答案，仅此而已。如果不仅仅关注答案的正确性，还将提交答案的过程记录下来，通过分析提交答案的过程，完全可以识别出这是不是一个人在操作，这就是交互式验证码的基本思路。这种验证码很难通过打码平台来破解，因为你必须对着浏览器，使用鼠标对验证码进行一系列的交互操作。</p>
+<p>最耳熟能详的交互验证码莫过于 12306 的了，这种验证码叫做 图中点选 式验证码，同时提供多个图像，让用户根据条件点击选择。也有些验证码是同时显示 N 个变形的汉字让你选，原理与 12306 的类似，但这种验证码以其极差的用户体验遭到很多人的唾弃，这也是大多数产品不愿意选用的一个原因。滑块验证码 比图中点选体验好很多，它只需要用户使用鼠标将滑块从某个位置拖动到另一个位置即可。程序通过记录用户拖动滑块的轨迹，这一串的轨迹数据采用模式识别的手段就可以判断出这是否是真人在操作。最简单的滑块验证码是用户拖动滑块从左拖到右即可，后来又出现了 拼图式 的滑块，滑块作为图的一部分，然后背景图中有一个缺口刚好和滑块相同形状，需要用户将滑块拖到缺口中拼成一张完整的图片。现在比较流行的滑块验证码有 极验 和 网易云易盾，本篇博客以极验的滑块验证码为例，其他的滑块验证码原理是类似的。</p>
+<p>最新的交互式验证码甚至只需要用户点击一个按钮即可验证，不需要做任何其他的操作，譬如 极验的第三代行为验证技术 和 易盾的智能无感知验证码。这种验证码的破解方式和滑块验证码不一样，我目前也没有太多的了解，后面有时间再研究研究吧。</p>
+<p>最后不得不说的是，还有一种交互式验证码为短信或电话验证码，通过将验证码以短信的形式发送到你的手机，或者使用语音机器人自动打电话播报验证码，更有甚者，需要用户自己编辑短信将验证码发送到某个号码。对于这种验证码我认为并不能算作是 CAPTCHA，因为它利用的是用户的有限资源（手机号）这个客观限制，而并非是从技术角度来区分人和机器人的区别。如果某个人拥有大量的手机号（其实，黑产中确实也有专门养卡卖卡的），这种验证手段就形同虚设了。</p>
+<h2 id="二、破解思路"><a href="#二、破解思路" class="headerlink" title="二、破解思路"></a>二、破解思路</h2><p>目前，极验正在推广其第三代行为验证技术，滑块验证码貌似已经没有前两年那么流行了，不过仍然有很多网站还在使用滑块验证码。譬如我这篇博客就以 春秋航空的会员注册页面 为例。</p>
+<p><a href="http://www.51testing.com/batch.download.php?aid=84515" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/4975863-7469b1e011843313..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a><br>好了，上面讲了那么多，下面就开始我们的破解之旅吧。</p>
+<h4 id="2-1-传统爬虫"><a href="#2-1-传统爬虫" class="headerlink" title="2.1 传统爬虫"></a>2.1 传统爬虫</h4><p>如果采用传统爬虫的方式来破解，首先我们需要测试下正常验证的情况是什么样的。在 Chrome 浏览器中按 F12 打开开发者工具，然后拖动滑块到正确位置，可以观察到 Network 面板发送的 Ajax 请求。</p>
+<p>　　<a href="http://www.51testing.com/batch.download.php?aid=84516" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/4975863-6a7fed38a699a5b9..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a> </p>
+<p>可以看到这个请求的参数非常复杂，每个参数的含义也完全没有头绪，如果要破解这个验证码，则必须模拟发送这个请求，这个请求的每个参数都必须弄清楚，于是我们在代码中搜索发送这个请求的地方。但事实上到这里我们就遇到了困难，ajax.php 这个请求根本就搜不到，甚至在浏览器中下 XHR 断点也不行（很显然它并不是一个 Ajax 请求），这是因为极验的核心代码经过了代码混淆。</p>
+<p>　<a href="http://www.51testing.com/batch.download.php?aid=84517" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/4975863-7fef775ec5286be3..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a> </p>
+<p>这样的代码也就只有机器能读懂，大多数人肯定是直接放弃了。不过网上也有大量的分析文章，如果你感兴趣可以自己研究下，譬如Windows应用开发 的知乎专栏上就有几篇介绍 极验验证码破解的系列文章，还有 FanhuaandLuomu 的 这篇破解文章 也写得很好，推荐。<br><strong>　在这里跳过对混淆代码的分析，总结下破解这样的滑块验证码的思路：</strong></p>
+<ul>
+<li>捕获所有关键请求；</li>
+<li>分析调试混淆的代码，弄懂每个请求每个参数的含义，其中肯定会有一个参数，是拖动滑块的轨迹；</li>
+<li>验证码图片是打乱的，需要解析页面上的样式，并使用图像处理方法还原出原始图像；</li>
+<li>根据原始的图像和滑块位置得到缺口的偏移量；</li>
+<li>滑块轨迹的模拟；</li>
+<li>如果参数有加密处理，还需要模拟它的加密过程；实在不行可以直接在代码里模拟执行页面上的 JS…….</li>
+</ul>
+<p>可见这里的工作量非常大，破解难度可想而知，而且混淆的代码随时可能会发布新的版本，一旦版本升级，参数都有可能发生变化，之前的所有分析工作都可能前功尽弃。</p>
+<p>　　除非实在是迫不得已，我并不推荐传统的这种破解方法。首先这样的破解方法太脆弱，不够通用，随时可能失效；其次这样的破解工作费时费力，就算破解出来也得不到成就感和满足感，对程序员的打击太大，他可能再也不会玩第二次了（除非他是极客中的极客，就以破解混淆代码为乐）。所以，还是让我们来看看浏览器爬虫如何。</p>
+<h4 id="2-2-浏览器爬虫"><a href="#2-2-浏览器爬虫" class="headerlink" title="2.2 浏览器爬虫"></a>2.2 浏览器爬虫</h4><p>由于浏览器爬虫完全是以人为第一视角，你所看到的，就是浏览器爬虫看到的，甚至，它能比你看到更多。我们可以大概的总结下浏览器爬虫的破解思路：</p>
+<ul>
+<li>图像识别，找到滑块的位置和缺口的位置；</li>
+<li>模拟鼠标拖动，将滑块拖到缺口位置；<br>没错，就两步。虽然其中会遇到一些坑，但真的就这两步。使用上一篇博客中介绍的 Selenium 技巧，可以很快的写下下面的代码：<blockquote>
+<p>chrome_options = webdriver.ChromeOptions()<br>chrome_options.add_argument(“–start-maximized”)<br>browser = webdriver.Chrome(<br>executable_path=”./drivers/chromedriver.exe”,<br>chrome_options=chrome_options<br>)<br>browser.get(‘<a href="https://account.ch.com/NonRegistrations-Regist" target="_blank" rel="external">https://account.ch.com/NonRegistrations-Regist</a>‘)<br>Wait(browser, 60).until(<br>Expect.visibility_of_element_located((By.CSS_SELECTOR, “div[data-target=’account-login’]”))<br>)<br>email = browser.find_element_by_css_selector(“div[data-target=’account-login’]”)<br>email.click()<br>Wait(browser, 60).until(<br>Expect.visibility_of_element_located((By.ID, “emailRegist”))<br>)<br>register = browser.find_element_by_id(“emailRegist”)<br>register.click()<br>offset = get_gap_offset(browser)<br>drag_and_drop(browser, offset)</p>
+</blockquote>
+</li>
+</ul>
+<p>关键就在于最后两个方法 get_gap_offset() 和 drag_and_drop()，下面就来看下这两个方法的实现。</p>
+<h2 id="三、验证码图片处理"><a href="#三、验证码图片处理" class="headerlink" title="三、验证码图片处理"></a>三、验证码图片处理</h2><p>　　审查验证码图片元素，可以看到下面这样的 HTML 代码：<br> <code>&lt;div class=&quot;gt_cut_fullbg_slice&quot; style=&quot;background-image: url(&#39;https://static.geetest.com/pictures/gt/3999642ae/3999642ae.webp&#39;); background-position: -157px -58px;&quot;&gt;&lt;/div&gt;</code>  </p>
+<p>这样的代码一共有 52 行，每一个 div 都是 10px * 58px 的小块。我们打开这个 background-image 对应的图片可以看出这是一张乱序的图片，这里的 background-position 用于显示出正确的图片。在代码上面，可以发现和这里完全类似的代码，background-position 都完全一样，只是 background-image 不一样，我们打开对应的图片，也是乱序的，但和上一张图片对比，可以猜测出，这是带有缺口的背景图片。</p>
+<p> <code>&lt;div class=&quot;gt_cut_bg_slice&quot; style=&quot;background-image: url(&#39;https://static.geetest.com/pictures/gt/3999642ae/bg/fbdb18152.webp&#39;); background-position: -157px -58px;&quot;&gt;&lt;/div&gt;</code></p>
+<p>　　一个很自然的想法就是把这两张乱序的图片根据 background-position 重组成两张看得懂的图片，然后对比两张图片，得到缺口的偏移量，然后将缺口偏移量减去滑块偏移量，就可以得到要拖动的偏移量。如下图所示：</p>
+<p><a href="http://www.51testing.com/batch.download.php?aid=84518" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/4975863-cd7349988e029f7b..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a> </p>
+<p>其中滑块的偏移量可以通过下面的代码得到（其中，left: 12px 就是滑块的偏移量）：</p>
+<p><code>&lt;div class=&quot;gt_slice gt_show&quot; style=&quot;left: 12px; background-image: url(&#39;https://static.geetest.com/pictures/gt/e6e7e0440/slice/fa2d5bbd8.png&#39;); width: 55px; height: 55px; top: 20px;&quot;&gt;&lt;/div&gt;</code></p>
+<p>这里需要用到一点点图像处理的知识，我们采用大名鼎鼎的 Pillow，<strong>Pillow</strong> 是 Python 里的图像处理库（PIL：Python Image Library），在开始之前，可以先看下它的官网教程，这里有一份中文文档也可以参考。计算缺口偏移量的关键代码如下：</p>
+<blockquote>
+<p>def get_slider_offset(image_url, image_url_bg, css):<br>image_file = io.BytesIO(requests.get(image_url).content)<br>im = Image.open(image_file)<br>image_file_bg = io.BytesIO(requests.get(image_url_bg).content)<br>im_bg = Image.open(image_file_bg)</p>
+<pre><code># 10*58 26/row =&gt; background image size = 260*116
+</code></pre><p>captcha = Image.new(‘RGB’, (260, 116))<br>captcha_bg = Image.new(‘RGB’, (260, 116))<br>for i, px in enumerate(css):<br>offset = convert_css_to_offset(px)<br>region = im.crop(offset)<br>region_bg = im_bg.crop(offset)<br>offset = convert_index_to_offset(i)<br>captcha.paste(region, offset)<br>captcha_bg.paste(region_bg, offset)<br>diff = ImageChops.difference(captcha, captcha_bg)<br>return get_slider_offset_from_diff_image(diff)</p>
+</blockquote>
+<p>代码很好理解，就是根据 css 将两张背景图片重新排序生成两张新图片，然后通过 ImageChops.difference() 方法得到两张图片的差值图像，最后通过差值图像得到缺口的偏移量。其中有一点要注意的是，Pillow 的 Image.open() 方法只支持文件，不支持 URL，所以将图片转换为 BytesIO 对象，BytesIO 和 StringIO 一样，是 Python 提供的在内存中操作 bytes 和 str 的类，并且和读写文件具有一致的接口。</p>
+<p>　　这种计算缺口位置的方法需要解析页面源码以及图片的 CSS 样式，其实还有一种更简单的方法：在显示验证码图片时对浏览器进行截图，这个时候的图像是完整的背景图像；然后再点击滑块，这个时候滑块和缺口都会显示出来，再对浏览器进行截图；分析两次的截图也可以计算出拖动的偏移量。有兴趣的同学可以一试。</p>
+<p>##　四、模拟滑块拖动</p>
+<p>在得到拖动偏移量后，我们就可以通过 Selenium 提供的方法来拖动滑块了：</p>
+<blockquote>
+<p>def drag_and_drop(browser, offset):<br>knob = browser.find_element_by_class_name(“gt_slider_knob”)<br>ActionChains(browser).drag_and_drop_by_offset(knob, offset, 0).perform()</p>
+</blockquote>
+<p>Selenium 将一系列连续的动作封装在 ActionChains 类 中，其中 drag_and_drop() 方法可以将一个元素拖到另一个元素上，drag_and_drop_by_offset() 方法可以指定拖动的偏移，正是我们这里所需要的。</p>
+<p>到这里，我们已经看到希望了，胜利就在前方。不过，还不能高兴得太早，上面的方法虽然成功将滑块拖到缺口位置了，但是并没有验证通过，页面提示拼图被怪物吃掉了。。。</p>
+<p><a href="http://www.51testing.com/batch.download.php?aid=84519" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/4975863-3699c5db31584e51..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a> </p>
+<p>很显然，这种方法很容易被检测出来是机器所为，因为人不可能拖那么快。于是我稍微调整了下程序，改成每次拖 10px，然后等待 1s 再拖 10px，依次循环，不过可惜的是，这种拖法拼图依然被怪物吃掉了，想想也是，人怎么可能拖的这么有规律呢？</p>
+<p>于是继续调整我的程序，在中间加入了随机数的成分，改成每次拖 1~20px（随机），然后等待 0~2s（随机），本想着这种方式应该能成功了，但是事与愿违，还是被怪物吃掉，不过，在测试的时候，10 次里面竟然也成功了一次。</p>
+<p>看来极验对拖动轨迹的验证还是很厉害的，它是如何识别出是机器拖动的还是人拖动的呢？人在拖动的时候，又有什么样的规律呢？为了搞清楚这一点，我在网上找了一款用于记录鼠标位置的小工具 MouseController，运行之后按 F9 就可以开始或停止记录，并可以将鼠标轨迹保存到一个 mcd 文件中。使用这个工具我将手工拖动滑块的轨迹记录下来，并写了一个脚本（脚本代码参见这里）画出手工拖动滑块的轨迹图，如下：</p>
+<p><a href="http://www.51testing.com/batch.download.php?aid=84520" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/4975863-ad9c4d182b2f6868..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a> </p>
+<p>看到这个轨迹图，我们应该能想出手工拖动的规律了：先快速向右拖动，快到缺口位置时，再减速慢调。接下来的问题就是如何通过算法来生成这样的轨迹了。</p>
+<p>模拟滑块拖动的算法网上也有很多，有的直接根据手工拖动的轨迹按比例生成程序要拖动的轨迹，有的根据物理学中的加速度减速度来模拟轨迹，还有根据正切函数图像来模拟轨迹的，可说各有千秋。不过它们的成功率都不能达到很满意，我在这里介绍一种与众不同的方法，而且成功率可以高达 99%。</p>
+<p>我看到上面这个轨迹图的时候，第一反应不是上述任何一种算法，而是 jquery.easing，可能是由于最近刚用 jquery.easing 实现了几个动画效果吧。我们知道，jQuery 可以实现很多不同的动画效果，譬如淡入淡出移动等等，为了让动画有好的过渡变化过程，官方提供了一个 easing 属性，但是官方没有给出很多过渡效果。于是就有了 jquery.easing 这个插件，这个插件增加了很多种过渡效果，引入之后可以让动画过渡过程更加多样化。Easing 有时又叫做 缓动函数，用于指定动画效果在执行时的速度，使其看起来更加真实。这里有一份缓动函数速查表，你可以在这里找到常见的缓动函数（还可以体验各种缓动函数的效果）：</p>
+<p><a href="http://www.51testing.com/batch.download.php?aid=84521" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/4975863-ea5c70c4551cc58b..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a> </p>
+<p>和上面的轨迹图做个对比就可以发现，轨迹图明显和 easeOut 类 的缓动函数很类似，如：easeOutQuad、easeOutQuart、easeOutExpo 等等。那么我们能不能写个 Python 版的 easing 函数呢？说干就干，我们参考 jquery.easing 的源码 实现了三种 easeOut 函数如下：</p>
+<blockquote>
+<p>import numpy as np<br>import math<br>def ease_out_quad(x):<br>return 1 - (1 - x) <em> (1 - x)<br>def ease_out_quart(x):<br>return 1 - pow(1 - x, 4)<br>def ease_out_expo(x):<br>if x == 1:<br>return 1<br>else:<br>return 1 - pow(2, -10 </em> x)<br>def get_tracks(distance, seconds, ease_func):<br>tracks = [0]<br>offsets = [0]<br>for t in np.arange(0.0, seconds, 0.1):<br>ease = globals()[ease_func]<br>offset = round(ease(t/seconds) * distance)<br>tracks.append(offset - offsets[-1])<br>offsets.append(offset)<br>return offsets, tracks</p>
+</blockquote>
+<p>其中 get_tracks() 方法可以根据滑块的偏移，需要的时间（相对时间，并不是准确时间），以及要采用的缓动函数生成拖动轨迹。然后就可以通过下面的方法，实现出想要的拖动效果了：</p>
+<blockquote>
+<p>def drag_and_drop(browser, offset):<br>knob = browser.find_element_by_class_name(“gt_slider_knob”)<br>offsets, tracks = easing.get_tracks(offset, 12, ‘ease_out_expo’)<br>ActionChains(browser).click_and_hold(knob).perform()<br>for x in tracks:<br>ActionChains(browser).move_by_offset(x, 0).perform()<br>ActionChains(browser).pause(0.5).release().perform()</p>
+</blockquote>
+<p>如果你感兴趣，还可以模拟出更多的效果，我们甚至可以实现出 easeOutBounce 这种类似小球落地时的弹跳效果。而且更有意思的是，用这种方法来拖动滑块，竟然也可以通过验证。（极验的验证算法还真是让人摸不清啊）</p>
+<blockquote>
+<p>def ease_out_bounce(x):<br>n1 = 7.5625<br>d1 = 2.75<br>if x &lt; 1 / d1 :<br>return n1 <em> x </em> x<br>elif x &lt; 2 / d1:<br>x -= 1.5 / d1<br>return n1 <em> x</em>x + 0.75<br>elif x &lt; 2.5 / d1:<br>x -= 2.25 / d1<br>return n1 <em> x</em>x + 0.9375<br>else:<br>x -= 2.625 / d1<br>return n1 <em> x</em>x + 0.984375</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过本文可以看出，破解滑块验证码，浏览器爬虫要比传统爬虫简单的多。不仅仅是破解滑块验证码，在遇到传统爬虫很难解决的问题时，浏览器爬虫都可以提供一种更方便的解决方案。但是俗话说得好，针无双头利，蔗无两头甜，凡事有利必有弊，并没有万能的解决方案，还是需要根据需求来取舍，譬如你的生产环境没有浏览器，那么你不得不使用传统爬虫。但是在正常情况下，我还是推荐最简单的那个选择。</p>
+<h2 id="文章来源"><a href="#文章来源" class="headerlink" title="文章来源"></a>文章来源</h2><p><a href="http://www.51testing.com/html/41/n-3725241-2.html" target="_blank" rel="external">软件测试网</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/23/使用Python+Selenium打造浏览器爬虫/" rel="next" title="使用Python+Selenium打造浏览器爬虫">
+                <i class="fa fa-chevron-left"></i> 使用Python+Selenium打造浏览器爬虫
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments"
+           data-href="https://fifi1996.github.io/2018/03/23/使用Python-Selenium破解滑块验证码/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507641409825&di=ff1253832584fd2728014ba501422ba3&imgtype=0&src=http%3A%2F%2Fscimg.jb51.net%2Fallimg%2F170817%2F2-1FQH130460-L.jpg"
+                alt="Fifi Zhuang" />
+            
+              <p class="site-author-name" itemprop="name">Fifi Zhuang</p>
+              <p class="site-description motion-element" itemprop="description">爱学习爱生活的tester</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Fifi1996" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.jianshu.com/u/692f7ab695d3" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-globe"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://testerhome.com/Fifi1996" target="_blank" title="testerhome">
+                    
+                      <i class="fa fa-fw fa-globe"></i>testerhome</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.facebook.com/profile.php?id=100010046321012" target="_blank" title="FB Page">
+                    
+                      <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、滑块验证码简述"><span class="nav-number">1.</span> <span class="nav-text">一、滑块验证码简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、破解思路"><span class="nav-number">2.</span> <span class="nav-text">二、破解思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-传统爬虫"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 传统爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-浏览器爬虫"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 浏览器爬虫</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、验证码图片处理"><span class="nav-number">3.</span> <span class="nav-text">三、验证码图片处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章来源"><span class="nav-number">5.</span> <span class="nav-text">文章来源</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fifi Zhuang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: document.location.href, 
+            owner: 'Fifi1996',
+            repo: 'https://github.com/Fifi1996/Comments.git',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'baeeb7babf6a5c64fa9cf1f6b8753409715079de',
+            
+                client_id: 'c2c63042a04065f34fd4'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      function showGitment(){
+        document.getElementById("gitment-display-button").style.display = "none";
+        document.getElementById("gitment-container").style.display = "block";
+        renderGitment();
+      }
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
