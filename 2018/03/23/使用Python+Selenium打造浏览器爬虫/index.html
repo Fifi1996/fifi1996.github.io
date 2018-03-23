@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-12cfebc44e0d9ca3..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4975863-c03e0cadaa834753..png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-23T09:47:22.376Z">
+<meta property="og:updated_time" content="2018-03-23T09:53:58.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Python+Selenium打造浏览器爬虫">
 <meta name="twitter:description" content="Selenium是一款强大的基于浏览器的开源自动化测试工具，最初由 Jason Huggins 于 2004 年在 ThoughtWorks 发起，它提供了一套简单易用的 API，模拟浏览器的各种操作，方便各种 应用的自动化测试。它的取名很有意思，因为当时最流行的一款自动化测试工具叫做 QTP，是由 Mercury 公司开发的商业应用。Mercury 是化学元素汞，而 Selenium 是化学元素">
@@ -250,6 +250,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
@@ -266,16 +276,6 @@
               <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             相册
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-board">
-          <a href="/board" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
-            
-            留言
           </a>
         </li>
       
@@ -420,7 +420,7 @@
         <p><strong>Selenium</strong>是一款强大的基于浏览器的开源自动化测试工具，最初由 Jason Huggins 于 2004 年在 ThoughtWorks 发起，它提供了一套简单易用的 API，模拟浏览器的各种操作，方便各种 应用的自动化测试。它的取名很有意思，因为当时最流行的一款自动化测试工具叫做 <strong>QTP</strong>，是由 Mercury 公司开发的商业应用。Mercury 是化学元素汞，而 Selenium 是化学元素硒，汞有剧毒，而硒可以解汞毒，它对汞有拮抗作用。</p>
 <p>Selenium 的核心组件叫做 Selenium-RC（Remote Control），简单来说它是一个代理服务器，浏览器启动时通过将它设置为代理，它可以修改请求响应报文并向其中注入 Javascript，通过注入的 JS 可以模拟浏览器操作，从而实现自动化测试。但是注入 JS 的方法存在很多限制，譬如无法模拟键盘和鼠标事件，处理不了对话框，不能绕过 JavaScript 沙箱等等。就在这个时候，于 2006 年左右的工程师 Simon Stewart 发起了 WebDriver 项目，WebDriver 通过调用浏览器提供的原生自动化 API 来驱动浏览器，解决了 Selenium 的很多疑难杂症。不过 WebDriver 也有它不足的地方，它不能支持所有的浏览器，需要针对不同的浏览器来开发不同的 WebDriver，因为不同的浏览器提供的 API 也不尽相同，好在经过不断的发展，各种主流浏览器都已经有相应的 WebDriver 了。最终 Selenium 和 WebDriver 合并在一起，这就是 Selenium 2.0，有的地方也直接把它称作 WebDriver。</p>
 <h2 id="一、Selenium-爬虫入门"><a href="#一、Selenium-爬虫入门" class="headerlink" title="一、Selenium 爬虫入门"></a>一、Selenium 爬虫入门</h2><p>Selenium 的初衷是打造一款优秀的自动化测试工具，但是慢慢的人们就发现，Selenium 的自动化用来做爬虫正合适。我们知道，传统的爬虫通过直接模拟 HTTP 请求来爬取站点信息，由于这种方式和浏览器访问差异比较明显，很多站点都采取了一些反爬的手段，而 Selenium 是通过模拟浏览器来爬取信息，其行为和用户几乎一样，反爬策略也很难区分出请求到底是来自 Selenium 还是真实用户。而且通过 Selenium 来做爬虫，不用去分析每个请求的具体参数，比起传统的爬虫开发起来更容易。Selenium 爬虫唯一的不足是慢，如果你对爬虫的速度没有要求，那使用 Selenium 是个非常不错的选择。Selenium 提供了多种语言的支持不论你是用哪种语言开发爬虫，Selenium 都适合你。<br>我们第一节先通过 Python 学习 Selenium 的基础知识，后面几节再介绍我在使用 Selenium 开发浏览器爬虫时遇到的一些问题和解决方法。</p>
-<p>####1.1 Hello World<br>　　一个最简单的 Selenium 程序像下面这样：</p>
+<h4 id="1-1-Hello-World"><a href="#1-1-Hello-World" class="headerlink" title="1.1 Hello World"></a>1.1 Hello World</h4><p>　　一个最简单的 Selenium 程序像下面这样：</p>
 <blockquote>
 <p> from selenium import webdriver<br>browser = webdriver.Chrome()<br> browser.get(‘<a href="http://www.baidu.com/" target="_blank" rel="external">http://www.baidu.com/</a>‘)</p>
 </blockquote>
@@ -506,7 +506,7 @@
 <p>　chrome_options = webdriver.ChromeOptions()<br>chrome_options.add_argument(‘–proxy-server=127.0.0.1:8118’)<br>browser = webdriver.Chrome(<br>executable_path=”./drivers/chromedriver.exe”,<br>chrome_options=chrome_options<br>)<br>browser.get(‘<a href="http://ip138.com" target="_blank" rel="external">http://ip138.com</a>‘)</p>
 </blockquote>
 <p>这里的 –proxy-server 参数格式为 ip:port，注意它不支持这种带用户名密码的格式 username:password@ip:port，所以如果代理服务器需要认证，访问网页时就会弹出一个认证对话框来。虽然使用 Selenium 也可以在对话框中填入用户名和密码，不过这种方式略显麻烦，而且每次 Selenium 启动浏览器时，都会弹出代理认证的对话框。更好的做法是，把代理的用户名和密码都提前设置好，对于 Chrome 浏览器来说，我们可以通过它的插件来实现。</p>
-<h4 id="2-2-使用插件控制代理"><a href="#2-2-使用插件控制代理" class="headerlink" title="2.2 使用插件控制代理**"></a>2.2 使用插件控制代理**</h4><p>Chrome 浏览器下最流行的代理配置插件是 Proxy SwitchyOmega，我们可以先配置好 SwitchyOmega，然后 Selenium 启动时指定加载插件，Chrome 提供了下面的命令行参数用于加载一个或多个插件：</p>
+<h4 id="2-2-使用插件控制代理"><a href="#2-2-使用插件控制代理" class="headerlink" title="2.2 使用插件控制代理"></a>2.2 使用插件控制代理</h4><p>Chrome 浏览器下最流行的代理配置插件是 Proxy SwitchyOmega，我们可以先配置好 SwitchyOmega，然后 Selenium 启动时指定加载插件，Chrome 提供了下面的命令行参数用于加载一个或多个插件：</p>
 <p><code>chrome.exe http://www.ip138.com --load
 extension=SwitchyOmega</code></p>
 <p>不过要注意的是，–load-extension 参数只能加载插件目录，而不能加载打包好的插件 *.crx 文件，我们可以把它当成 zip 文件直接解压缩到 SwitchyOmega 目录即可。代码如下：</p>
@@ -570,7 +570,7 @@ extension=SwitchyOmega</code></p>
 <p>如果你是个 .Net guy，可以使用 Fiddler 提供的 FiddlerCore，FiddlerCore 就相当于 BMP 的嵌入模式，和这里的方法类似。这里有一篇很好的文章讲解了如何使用 .Net 和 FiddlerCore 拦截请求。</p>
 <p>既然在 Java 环境下解决了这个问题，那么 Python 应该也没问题，但是 BMP 的嵌入模式并不支持 Python 怎么办呢？于是我一直在寻找一款基于 Python 的能替代 BMP 的工具，可惜一直不如愿，未能找到满意的。到最后，我几乎要下结论：Python + Selenium 很难实现 Ajax 请求的爬取。</p>
 <p>天无绝人之路，直到我遇到了 har。</p>
-<p>　　有一天我静下心来把 BMP 的文档翻来覆去看了好几遍，之前我看文档的习惯都是用时再查，但这次把 BMP 的文档从头到尾看了几遍，也是希望能从中寻找点蛛丝马迹。而事实上，还真被我发现了点什么。因为 Python 只能通过 RESTful 接口与 BMP 交互，那么每一个接口我都不能放过，有一个接口引起了我的注意：/proxy/[port]/har。<br>这个接口虽然之前也扫过几眼，但当时并不知道这个 har 是什么意思，所以都是一掠而过。但那天心血来潮，特意去查了一下 har 的资料，才发现这是一种特殊的 JSON 格式的归档文件。HAR 全称 HTTP Archive Format，通常用于记录浏览器访问网站的所有交互请求，绝大多数浏览器和 Web 代理都支持这种格式的归档文件，用于分析 HTTP 请求，因为广泛的应用，W3C 甚至还提出 HAR 的规范，目前还在草稿阶段。</p>
+<p>有一天我静下心来把 BMP 的文档翻来覆去看了好几遍，之前我看文档的习惯都是用时再查，但这次把 BMP 的文档从头到尾看了几遍，也是希望能从中寻找点蛛丝马迹。而事实上，还真被我发现了点什么。因为 Python 只能通过 RESTful 接口与 BMP 交互，那么每一个接口我都不能放过，有一个接口引起了我的注意：/proxy/[port]/har。<br>这个接口虽然之前也扫过几眼，但当时并不知道这个 har 是什么意思，所以都是一掠而过。但那天心血来潮，特意去查了一下 har 的资料，才发现这是一种特殊的 JSON 格式的归档文件。HAR 全称 HTTP Archive Format，通常用于记录浏览器访问网站的所有交互请求，绝大多数浏览器和 Web 代理都支持这种格式的归档文件，用于分析 HTTP 请求，因为广泛的应用，W3C 甚至还提出 HAR 的规范，目前还在草稿阶段。</p>
 <p>/proxy/[port]/har 接口用于创建一份新的 har 文件，Selenium 启动浏览器后所有的请求都将被记录到这份 har 文件中，然后通过 GET 请求，可以获取到这份 har 文件的内容（JSON 格式）。har 文件的内容类似于下面这样：</p>
 <blockquote>
 <p>　{<br>“log”: {<br>　　“version” : “1.2”,<br>　　“creator” : {},<br>　　“browser” : {},<br>　　“pages”: [],<br>　　“entries”: [],<br>　　“comment”: “”<br>　　}<br>　　}</p>
@@ -814,7 +814,7 @@ extension=SwitchyOmega</code></p>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Selenium-爬虫入门"><span class="nav-number">1.</span> <span class="nav-text">一、Selenium 爬虫入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-输入和输出"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.2 输入和输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-处理-Ajax-页面"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.3 处理 Ajax 页面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Selenium-如何使用代理服务器？"><span class="nav-number">2.</span> <span class="nav-text">二、Selenium 如何使用代理服务器？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-通过命令行参数指定代理"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 通过命令行参数指定代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-使用插件控制代理"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 使用插件控制代理**</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Selenium-如何过滤非必要请求？"><span class="nav-number">3.</span> <span class="nav-text">三、Selenium 如何过滤非必要请求？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Selenium-如何爬取-Ajax-请求？"><span class="nav-number">4.</span> <span class="nav-text">四、Selenium 如何爬取 Ajax 请求？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文章来源"><span class="nav-number">5.1.</span> <span class="nav-text">文章来源</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Selenium-爬虫入门"><span class="nav-number">1.</span> <span class="nav-text">一、Selenium 爬虫入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Hello-World"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 Hello World</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-输入和输出"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 输入和输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-处理-Ajax-页面"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.3 处理 Ajax 页面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Selenium-如何使用代理服务器？"><span class="nav-number">2.</span> <span class="nav-text">二、Selenium 如何使用代理服务器？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-通过命令行参数指定代理"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 通过命令行参数指定代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-使用插件控制代理"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 使用插件控制代理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Selenium-如何过滤非必要请求？"><span class="nav-number">3.</span> <span class="nav-text">三、Selenium 如何过滤非必要请求？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Selenium-如何爬取-Ajax-请求？"><span class="nav-number">4.</span> <span class="nav-text">四、Selenium 如何爬取 Ajax 请求？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文章来源"><span class="nav-number">5.1.</span> <span class="nav-text">文章来源</span></a></li></ol></li></ol></div>
             
 
           </div>
