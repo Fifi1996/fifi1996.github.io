@@ -81,16 +81,16 @@
 
 <meta name="description" content="我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取。所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。在线SSL服务器测试 一、HTTPS工作过程HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。具体是如何进行加密，解密，验证的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ＨＴＴＰＳ工作过程及加密算法">
+<meta property="og:title" content="HTTPS工作过程及加密算法">
 <meta property="og:url" content="https://fifi1996.github.io/2018/02/28/HTTPS工作过程及加密算法/index.html">
 <meta property="og:site_name" content="Fifi Zhuang的博客">
 <meta property="og:description" content="我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取。所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。在线SSL服务器测试 一、HTTPS工作过程HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。具体是如何进行加密，解密，验证的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic002.cnblogs.com/images/2012/38542/2012072310244445.png">
 <meta property="og:image" content="https://images0.cnblogs.com/blog/442200/201410/121924258581724.png">
-<meta property="og:updated_time" content="2018-02-28T11:18:39.627Z">
+<meta property="og:updated_time" content="2018-02-28T11:36:19.500Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ＨＴＴＰＳ工作过程及加密算法">
+<meta name="twitter:title" content="HTTPS工作过程及加密算法">
 <meta name="twitter:description" content="我们都知道HTTPS能够加密信息，以免敏感信息被第三方获取。所以很多银行网站或电子邮箱等等安全级别较高的服务都会采用HTTPS协议。在线SSL服务器测试 一、HTTPS工作过程HTTPS其实是有两部分组成：HTTP + SSL / TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。具体是如何进行加密，解密，验证的">
 <meta name="twitter:image" content="https://pic002.cnblogs.com/images/2012/38542/2012072310244445.png">
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>ＨＴＴＰＳ工作过程及加密算法 | Fifi Zhuang的博客</title>
+  <title>HTTPS工作过程及加密算法 | Fifi Zhuang的博客</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ＨＴＴＰＳ工作过程及加密算法</h1>
+          <h1 class="post-title" itemprop="name headline">HTTPS工作过程及加密算法</h1>
         
 
         <div class="post-meta">
@@ -524,7 +524,7 @@ private byte[] salt = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x5, 0x4, 0x3, 0x2, 0
         MessageBox.Show(new UnicodeEncoding().GetString(unencrypted));
     }
 </code></pre><p>虽然非对称加密很安全，但是和对称加密比起来，它非常的慢，所以我们还是要用对称加密来传送消息，但对称加密所使用的密钥我们可以通过非对称加密的方式发送出去。<br>了解释这个过程，请看下面的例子：<br>（１）Alice需要在银行的网站做一笔交易，她的浏览器首先生成了一个随机数作为对称密钥。<br>（2） Alice的浏览器向银行的网站请求公钥。<br>（3） 银行将公钥发送给Alice。<br>（4） Alice的浏览器使用银行的公钥将自己的对称密钥加密。<br>（5） Alice的浏览器将加密后的对称密钥发送给银行。<br>（6） 银行使用私钥解密得到Alice浏览器的对称密钥。<br>（7） Alice与银行可以使用对称密钥来对沟通的内容进行加密与解密了。</p>
-<h3 id="３-总结"><a href="#３-总结" class="headerlink" title="３. 总结"></a>３. 总结</h3><p>（1） 对称加密加密与解密使用的是同样的密钥，所以速度快，但由于需要将密钥在网络传输，所以安全性不高。<br>（2） 非对称加密使用了一对密钥，公钥与私钥，所以安全性高，但加密与解密速度慢。<br>（3） 解决的办法是将对称加密的密钥使用非对称加密的公钥进行加密，然后发送出去，接收方使用私钥进行解密得到对称加密的密钥，然后双方可以使用对称加密来进行沟通。<br><a href="https://images0.cnblogs.com/blog/442200/201410/121924251089094.png" target="_blank" rel="external"><img src="https://images0.cnblogs.com/blog/442200/201410/121924258581724.png" alt="" title="image_thumb3"></a></p>
+<h3 id="３-总结"><a href="#３-总结" class="headerlink" title="３. 总结"></a>３. 总结</h3><p>（1） 对称加密加密与解密使用的是同样的密钥，所以速度快，但由于需要将密钥在网络传输，所以安全性不高。<br>（2） 非对称加密使用了一对密钥，公钥与私钥，所以安全性高，但加密与解密速度慢。<br>（3） 解决的办法是将对称加密的密钥使用非对称加密的公钥进行加密，然后发送出去，接收方使用私钥进行解密得到对称加密的密钥，然后双方可以使用对称加密来进行沟通。<br><img src="https://images0.cnblogs.com/blog/442200/201410/121924258581724.png" alt="" title="image_thumb3"></p>
 <h4 id="参考来自"><a href="#参考来自" class="headerlink" title="参考来自"></a>参考来自</h4><p><a href="http://www.cnblogs.com/zhuqil/archive/2012/07/23/2604572.html" target="_blank" rel="external">朱祁林－博客园</a><br><a href="http://www.cnblogs.com/jfzhu/p/4020928.html" target="_blank" rel="external">JF Zhu 的博客</a></p>
 
       
@@ -574,6 +574,10 @@ private byte[] salt = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x5, 0x4, 0x3, 0x2, 0
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/23/使用Python+Selenium打造浏览器爬虫/" rel="prev" title="使用Python+Selenium打造浏览器爬虫">
+                使用Python+Selenium打造浏览器爬虫 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -664,7 +668,7 @@ private byte[] salt = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x5, 0x4, 0x3, 0x2, 0
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
